@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on guning</title>
-    <link>guningblog.top/post/</link>
+    <link>http://guningblog.top/post/</link>
     <description>Recent content in Posts on guning</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>guningh@gmail.com (guning)</managingEditor>
     <webMaster>guningh@gmail.com (guning)</webMaster>
     <lastBuildDate>Wed, 10 Oct 2018 00:04:05 +0800</lastBuildDate>
     
-	<atom:link href="guningblog.top/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://guningblog.top/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Second</title>
-      <link>guningblog.top/post/second/</link>
+      <link>http://guningblog.top/post/second/</link>
       <pubDate>Wed, 10 Oct 2018 00:04:05 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>guningblog.top/post/second/</guid>
+      <guid>http://guningblog.top/post/second/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Guning First Test</title>
-      <link>guningblog.top/post/guning-first-test/</link>
+      <link>http://guningblog.top/post/guning-first-test/</link>
       <pubDate>Mon, 08 Oct 2018 16:20:27 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>guningblog.top/post/guning-first-test/</guid>
+      <guid>http://guningblog.top/post/guning-first-test/</guid>
       <description>title1 this is an article</description>
     </item>
     

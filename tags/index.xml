@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on guning</title>
-    <link>guningblog.top/tags/</link>
+    <link>http://guningblog.top/tags/</link>
     <description>Recent content in Tags on guning</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>guningh@gmail.com (guning)</managingEditor>
     <webMaster>guningh@gmail.com (guning)</webMaster>
     
-	<atom:link href="guningblog.top/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://guningblog.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>That</title>
-      <link>guningblog.top/tags/that/</link>
+      <link>http://guningblog.top/tags/that/</link>
       <pubDate>Mon, 08 Oct 2018 16:20:27 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>guningblog.top/tags/that/</guid>
+      <guid>http://guningblog.top/tags/that/</guid>
       <description></description>
     </item>
     
     <item>
       <title>This</title>
-      <link>guningblog.top/tags/this/</link>
+      <link>http://guningblog.top/tags/this/</link>
       <pubDate>Mon, 08 Oct 2018 16:20:27 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>guningblog.top/tags/this/</guid>
+      <guid>http://guningblog.top/tags/this/</guid>
       <description></description>
     </item>
     
