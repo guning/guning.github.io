@@ -7,27 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>guningh@gmail.com (guning)</managingEditor>
     <webMaster>guningh@gmail.com (guning)</webMaster>
-    <lastBuildDate>Wed, 10 Oct 2018 00:04:05 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 15 Oct 2018 20:52:44 +0800</lastBuildDate>
     
 	<atom:link href="http://guningblog.top/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Second</title>
-      <link>http://guningblog.top/post/second/</link>
-      <pubDate>Wed, 10 Oct 2018 00:04:05 +0800</pubDate>
+      <title>regular expression</title>
+      <link>http://guningblog.top/post/regular_expression/</link>
+      <pubDate>Mon, 15 Oct 2018 20:52:44 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>http://guningblog.top/post/second/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Guning First Test</title>
-      <link>http://guningblog.top/post/guning-first-test/</link>
-      <pubDate>Mon, 08 Oct 2018 16:20:27 +0800</pubDate>
-      <author>guningh@gmail.com (guning)</author>
-      <guid>http://guningblog.top/post/guning-first-test/</guid>
-      <description>title1 this is an article</description>
+      <guid>http://guningblog.top/post/regular_expression/</guid>
+      <description>An Regular Expression is a sequence of characters for defining a search pattern.</description>
     </item>
     
   </channel>

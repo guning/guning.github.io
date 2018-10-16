@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>guning</title>
-    <link>http://guningblog.top/</link>
-    <description>Recent content on guning</description>
+    <title>Reg on guning</title>
+    <link>http://guningblog.top/tags/reg/</link>
+    <description>Recent content in Reg on guning</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>guningh@gmail.com (guning)</managingEditor>
     <webMaster>guningh@gmail.com (guning)</webMaster>
     <lastBuildDate>Mon, 15 Oct 2018 20:52:44 +0800</lastBuildDate>
     
-	<atom:link href="http://guningblog.top/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://guningblog.top/tags/reg/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,15 +19,6 @@
       <author>guningh@gmail.com (guning)</author>
       <guid>http://guningblog.top/post/regular_expression/</guid>
       <description>An Regular Expression is a sequence of characters for defining a search pattern.</description>
-    </item>
-    
-    <item>
-      <title>About me</title>
-      <link>http://guningblog.top/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <author>guningh@gmail.com (guning)</author>
-      <guid>http://guningblog.top/about/</guid>
-      <description>My name is Guning.</description>
     </item>
     
   </channel>
