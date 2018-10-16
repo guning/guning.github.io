@@ -11,23 +11,5 @@
 	<atom:link href="http://guningblog.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
-    <item>
-      <title>That</title>
-      <link>http://guningblog.top/tags/that/</link>
-      <pubDate>Mon, 08 Oct 2018 16:20:27 +0800</pubDate>
-      <author>guningh@gmail.com (guning)</author>
-      <guid>http://guningblog.top/tags/that/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>This</title>
-      <link>http://guningblog.top/tags/this/</link>
-      <pubDate>Mon, 08 Oct 2018 16:20:27 +0800</pubDate>
-      <author>guningh@gmail.com (guning)</author>
-      <guid>http://guningblog.top/tags/this/</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>
