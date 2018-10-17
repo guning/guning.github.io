@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on guning</title>
-    <link>http://guningblog.top/post/</link>
-    <description>Recent content in Posts on guning</description>
+    <title>Linux on guning</title>
+    <link>http://guningblog.top/tags/linux/</link>
+    <description>Recent content in Linux on guning</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>guningh@gmail.com (guning)</managingEditor>
     <webMaster>guningh@gmail.com (guning)</webMaster>
     <lastBuildDate>Wed, 17 Oct 2018 16:32:52 +0800</lastBuildDate>
     
-	<atom:link href="http://guningblog.top/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://guningblog.top/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,15 +19,6 @@
       <author>guningh@gmail.com (guning)</author>
       <guid>http://guningblog.top/post/machine_safty/</guid>
       <description>安全小组扫描到了项目的安全缺陷，在某个版本进行了预研和修复，于是整理出此文</description>
-    </item>
-    
-    <item>
-      <title>正则表达式</title>
-      <link>http://guningblog.top/post/regular_expression/</link>
-      <pubDate>Mon, 15 Oct 2018 20:52:44 +0800</pubDate>
-      <author>guningh@gmail.com (guning)</author>
-      <guid>http://guningblog.top/post/regular_expression/</guid>
-      <description>A Regular Expression is a sequence of characters for defining a search pattern.</description>
     </item>
     
   </channel>

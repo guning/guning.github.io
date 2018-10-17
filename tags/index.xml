@@ -7,17 +7,35 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>guningh@gmail.com (guning)</managingEditor>
     <webMaster>guningh@gmail.com (guning)</webMaster>
-    <lastBuildDate>Mon, 15 Oct 2018 20:52:44 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 17 Oct 2018 16:32:52 +0800</lastBuildDate>
     
 	<atom:link href="http://guningblog.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Reg</title>
-      <link>http://guningblog.top/tags/reg/</link>
+      <title>Docker</title>
+      <link>http://guningblog.top/tags/docker/</link>
+      <pubDate>Wed, 17 Oct 2018 16:32:52 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>http://guningblog.top/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>http://guningblog.top/tags/linux/</link>
+      <pubDate>Wed, 17 Oct 2018 16:32:52 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>http://guningblog.top/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Regex</title>
+      <link>http://guningblog.top/tags/regex/</link>
       <pubDate>Mon, 15 Oct 2018 20:52:44 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>http://guningblog.top/tags/reg/</guid>
+      <guid>http://guningblog.top/tags/regex/</guid>
       <description></description>
     </item>
     

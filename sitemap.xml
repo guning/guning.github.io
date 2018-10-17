@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://guningblog.top/post/machine_safty/</loc>
+    <lastmod>2018-10-17T16:32:52+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://guningblog.top/post/regular_expression/</loc>
     <lastmod>2018-10-15T20:52:44+08:00</lastmod>
   </url>
@@ -17,26 +22,38 @@
   </url>
   
   <url>
-    <loc>http://guningblog.top/post/</loc>
-    <lastmod>2018-10-15T20:52:44+08:00</lastmod>
+    <loc>http://guningblog.top/tags/docker/</loc>
+    <lastmod>2018-10-17T16:32:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://guningblog.top/tags/reg/</loc>
+    <loc>http://guningblog.top/tags/linux/</loc>
+    <lastmod>2018-10-17T16:32:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guningblog.top/post/</loc>
+    <lastmod>2018-10-17T16:32:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://guningblog.top/tags/regex/</loc>
     <lastmod>2018-10-15T20:52:44+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://guningblog.top/tags/</loc>
-    <lastmod>2018-10-15T20:52:44+08:00</lastmod>
+    <lastmod>2018-10-17T16:32:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://guningblog.top/</loc>
-    <lastmod>2018-10-15T20:52:44+08:00</lastmod>
+    <lastmod>2018-10-17T16:32:52+08:00</lastmod>
     <priority>0</priority>
   </url>
   

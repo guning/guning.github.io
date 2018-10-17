@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>执行安全研究和实践</title>
+  <meta property="og:title" content="执行安全研究和实践" />
+  <meta name="twitter:title" content="执行安全研究和实践" />
+  <meta name="description" content="安全小组扫描到了项目的安全缺陷，在某个版本进行了预研和修复，于是整理出此文">
+  <meta property="og:description" content="安全小组扫描到了项目的安全缺陷，在某个版本进行了预研和修复，于是整理出此文">
+  <meta name="twitter:description" content="安全小组扫描到了项目的安全缺陷，在某个版本进行了预研和修复，于是整理出此文">
+  <meta name="author" content="guning"/>
+  <meta property="og:image" content="http://guningblog.top/img/color.jpg" />
+  <meta name="twitter:image" content="http://guningblog.top/img/color.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="http://guningblog.top/post/machine_safty/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="guning" />
+
+  <meta name="generator" content="Hugo 0.49" />
+  <link rel="canonical" href="http://guningblog.top/post/machine_safty/" />
+  <link rel="alternate" href="http://guningblog.top/index.xml" type="application/rss+xml" title="guning">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="http://guningblog.top/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="http://guningblog.top/css/highlight.min.css" /><link rel="stylesheet" href="http://guningblog.top/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://guningblog.top/">guning</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="guning" href="http://guningblog.top/">
+            <img class="avatar-img" src="http://guningblog.top/img/color.jpg" alt="guning" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>执行安全研究和实践</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on October 17, 2018
+  
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 1 minutes (165 words)
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<p>安全小组扫描到了项目的安全缺陷，在某个版本进行了预研和修复，于是整理出此文</p>
+
+<h2 id="一-需求-场景">一、需求&amp;场景</h2>
+
+<p>项目允许用户通过自定义工具的形式对项目所在机器、远程机进行操作，为自动化运维提供了极大的便利。但与此同时，自定义工具给予了用户过大的权限，恶意用户有可能在工具中写入危及服务器运行的命令。当前的方案是通过执行工具的用户的权限进行限制，但这远远不够。</p>
+
+<h2 id="二-方案定制">二、方案定制</h2>
+
+<h3 id="1-针对代码文件-工具代码检查">1. 针对代码文件——工具代码检查</h3>
+
+<p>拿到需求的第一反应——对工具进行代码检查，但是这么做有两点不足：</p>
+
+<ul>
+<li>有违项目设计初衷：开放，想干啥干啥；万一用户真的只是想删除临时文件，<code>rm</code> 命令不给用？</li>
+<li>用户行为不可预测，需要覆盖的情况太多，容易遗漏，而且逻辑复杂<br /></li>
+</ul>
+
+<h3 id="2-针对要保护的文件-setfacl">2. 针对要保护的文件——setfacl</h3>
+
+<p>这个命令可以给文件设置用户访问属性。按照需求，我们只需将代码目录、.env文件、其他工作目录、其他配置文件保护起来即可。</p>
+
+<h3 id="3-完全的隔离-容器系统">3. 完全的隔离——容器系统</h3>
+
+<h4 id="1-chroot">1) chroot</h4>
+
+<p><code>chroot</code>可以改变文件系统的根目录，限制用户的访问。使用方法是：<code>chroot newroot cammand</code>，需要注意，必须将<code>/bin/bash</code>复制到新的根目录，同时使用<code>ldd</code>命令找到其依赖的库一并拷贝进来。也就是说，如果想用php，就需要将主机的php及其依赖复制到新的根目录，python同理——这也太low了，有其他办法吗？有，overlayFS</p>
+
+<h4 id="2-overlayfs">2) overlayFS</h4>
+
+<p><code>overlayFS</code>是一个面向linux的文件系统服务，linux内核3.18版本将其合入，主要功能是采用分层的特性将不同的文件联合挂载在一起，挂载后的具体结构如下：
+<center><img src="/img/overlayFS.jpg" alt="图2-1" /><br><b>图2-1 overlayFS挂载结构图</b></center><br>
+使用<code>overlayFS</code>进行文件挂载的时候，可以指定<code>lower</code>层（可以指定多个）和<code>upper</code>层，将其合入<code>merged</code>层，<code>merged</code>的文件结构就相当于<code>lower</code> + <code>upper</code>。如果出现了文件冲突（如图中fileb），取<code>upper</code>层的数据。在<code>merged</code>层对文件和目录的增删改，在不同层表现不同，<code>upper</code>层的文件和目录都是可读写属性，而<code>lower</code>层的只有读属性。具体处理策略在这里不详细列出，感兴趣可点击<a href="http://blog.lucode.net/linux/play-with-overlayfs.html">这里</a>阅读（btw，操作过程中涉及<code>work</code>层，其内容对用户不可见，故不进行阐述）。<br />
+相比直接复制文件到某一目录然后借助chroot进行文件系统隔离，<code>overlayFS</code>更加节省存储空间。下面给出<code>overlayFS</code>的使用方式：</p>
+<div class="highlight"><pre class="chroma">mount -t overlay overlay -o lowerdir=lower1:lower2:lower3,upperdir=upper,workdir=work merged</pre></div>
+<h4 id="3-firejail">3) firejail</h4>
+
+<p>如果利用上述的<code>chroot</code>和<code>overlayFS</code>，其实基本已经能够满足隔离的需求了，但利用<code>firejail</code>能够做得更好——隔离进程。<code>firejail</code>是一款基于<code>linux Namespce</code>特性开发出来的沙箱程序，其官方网站为<a href="https://firejail.wordpress.com/">https://firejail.wordpress.com/</a>，可以在上面找到不同系统的下载版本和安装方案。<br />
+安装之后，只需运行<code>firejail+option</code>进行启用就行了。这里我们只用到了<code>--chroot=</code>参数（指定封装好的<code>merged</code>层的目录）,其他参数详见<code>firejail --help</code><br />
+以上仅简单说明了<code>firejail</code>的使用方式，想对其原理进行理解，可以结合[<code>linux Namepace</code>]()（理论）和<code>firejail --debug</code>（实际）进行研究，还是比较简单的。</p>
+
+<p>综上，我们可以采用<code>overlayFS</code> + <code>firejail</code> (+ <code>chroot</code>) 构建出一个与母机隔离的执行环境。这里其实只是简单的文件系统隔离、进程隔离。母机和<code>firejail</code>依旧共享相同的网络，相同的用户权限，相同的主机名，没有做到完全的隔离，但这对于我们的需求来说已经是足够用的了。如果对其他的<code>Namespce</code>进行隔离，把<code>lower</code>层封装成“镜像”，把<code>upper</code>层封装成<code>layer</code>，那么功能上基本就与<code>docker</code>相同了。</p>
+
+<h2 id="三-实践">三、实践</h2>
+
+<p>一番比较下来，方案三应该是最满足需求的——利用沙箱将环境隔离开来。在上开发机测试之前，我在自己的服务器上跑通了整个流程，非常完美。整体的流程如下：</p>
+<div class="highlight"><pre class="chroma"># workdir:/root/sandbox/
+# download firejail from Official Page &amp; install (look for the document from the page)
+# overlayFS mount the new root dir
+mkdir upper work merged &amp;&amp; mount -t overlay overlay -o lowerdir=/,upperdir=./upper,workdir=./work merged
+# run firejail with --chroot option
+firejail --chroot=./merged</pre></div>
+<p>这里，我们在挂载只读的lowerdir的时候，可以将执行环境的源代码作为某一lower层，将用户定义的脚本作为upper层。相比之前拷贝整个执行环境的源代码，节省了大量的存储空间。而且，这样做同时也将<code>PID Namespace</code>隔离开来，用户不能通过自定义工具查看到服务器上运行的敏感进程，安全级别更高。</p>
+
+<p>但是在开发机上，因为我们的代码是在docker容器上跑的，遇到了两个比较致命的问题：</p>
+
+<ul>
+<li><code>firejail</code>在docker容器内不可用：详见<a href="https://github.com/netblue30/firejail/issues/1956">这里</a></li>
+<li><code>overlayFS</code>对容器的文件系统格式有要求：详见<a href="#1-overlayfs-upper-fs-needs-to-support-d_type">附:遇到的问题：1</a></li>
+</ul>
+
+<p><code>firejail</code>的问题其实并不重要，我们采用<code>chroot</code>和<code>overlayFS</code>结合，也能对文件系统进行隔离；<code>overlayFS</code>的问题可以通过挂载的文件系统来解决，但是ToB业务复杂的客户环境导致这个方案可能不能完美的适配到每一台机器。</p>
+
+<p>那就只能退而求其次，使用<code>setfacl</code>对文件权限进行限制了。</p>
+
+<h2 id="四-收获">四、收获</h2>
+
+<p>虽然说没能用到最完美的隔离方案，但是在预研过程中，对<code>linux</code>的<code>namespace</code>、docker的实现原理有了更深的理解，同时也意识到自己对linux系统的认知只是流于表面，还有许多特性需要去探究；也认识到软件系统的设计和开发有很多地方可以参考unix系统的架构设计，足见其设计的实用和超前。最后，感谢导师在预研过程中的指引和帮助。</p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://blog.csdn.net/dog250/article/details/8102501">以firejail sandbox解析Docker核心原理依赖的四件套</a></li>
+<li><a href="https://blog.csdn.net/luckyapple1028/article/details/78075358">深入理解overlayfs（二）：使用与原理分析</a></li>
+<li><a href="http://blog.lucode.net/linux/play-with-overlayfs.html">把玩overlay文件系统</a></li>
+<li><a href="https://coolshell.cn/articles/17010.html">DOCKER基础技术：LINUX NAMESPACE（上）</a></li>
+<li><a href="http://man.linuxde.net/setfacl">setfacl命令</a></li>
+</ul>
+
+<h2 id="附-遇到的问题">附：遇到的问题</h2>
+
+<h3 id="1-overlayfs-upper-fs-needs-to-support-d-type">1. <code>overlayfs: upper fs needs to support d_type</code></h3>
+
+<p>在自己的服务器测试通过之后，上开发环境进行尝试，执行挂载<code>overlayFS</code>的暴露出这个问题。经查，应是开发环境系统创建的时候没有指定相应配置（<a href="https://docs.docker.com/storage/storagedriver/overlayfs-driver/#prerequisites">docker官方文档</a> &amp;&amp; <a href="https://community.centminmod.com/threads/using-docker-on-centos-7-choose-ext4-over-xfs.12492/">国外某社区讨论</a>），解决方案有好几个：</p>
+
+<ul>
+<li>找开发环境镜像构建的相关人员把<code>d_type=true</code>加上，重新构建</li>
+<li>寻找<code>overlayFS</code>替代品</li>
+<li>看到如下可能的解决方案：
+&gt; Guess one solution is if you have free unallocated disk space, you can create a filesystem with d_type=1 enabled and change Docker&rsquo;s default data directory path from /var/lib/docker to point to the new filesystem</li>
+</ul>
+
+<p>因为问题的根源是<code>overlayFS</code>在merged层进行文件修改的时候需要upper（存放更改）和work（存放中间数据，用户不可见）这两层的协助，所以对这两个目录的文件系统属性有特殊需求。而我们项目是跑在母机的容器上，它能跑docker，就一定支持overlayFS，一定支持d_type。结合刚才可能的解决方案：挂载另一个满足格式要求的磁盘，大胆猜测镜像中挂载的/dev/sda4是母机的某个<code>filesystem</code>，果不其然，测试通过。</p>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="http://guningblog.top//tags/linux/">linux</a>&nbsp;
+            
+              <a href="http://guningblog.top//tags/docker/">docker</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <ul class="list-inline footer-links">
+                
+
+
+<li>
+    <a href="//twitter.com/share?url=http%3a%2f%2fguningblog.top%2fpost%2fmachine_safty%2f&amp;text=%e6%89%a7%e8%a1%8c%e5%ae%89%e5%85%a8%e7%a0%94%e7%a9%b6%e5%92%8c%e5%ae%9e%e8%b7%b5&amp;via="
+       target="_blank" alt="" title="Share on Twitter">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//plus.google.com/share?url=http%3a%2f%2fguningblog.top%2fpost%2fmachine_safty%2f" target="_blank" title="Share on Google Plus">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fguningblog.top%2fpost%2fmachine_safty%2f" target="_blank" title="Share on Facebook">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//reddit.com/submit?url=http%3a%2f%2fguningblog.top%2fpost%2fmachine_safty%2f&amp;title=%e6%89%a7%e8%a1%8c%e5%ae%89%e5%85%a8%e7%a0%94%e7%a9%b6%e5%92%8c%e5%ae%9e%e8%b7%b5" target="_blank" title="Share on Reddit">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-reddit fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2fguningblog.top%2fpost%2fmachine_safty%2f&amp;title=%e6%89%a7%e8%a1%8c%e5%ae%89%e5%85%a8%e7%a0%94%e7%a9%b6%e5%92%8c%e5%ae%9e%e8%b7%b5" target="_blank"
+       title="Share on LinkedIn">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2fguningblog.top%2fpost%2fmachine_safty%2f&amp;title=%e6%89%a7%e8%a1%8c%e5%ae%89%e5%85%a8%e7%a0%94%e7%a9%b6%e5%92%8c%e5%ae%9e%e8%b7%b5" target="_blank"
+       title="Share on StumbleUpon">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-stumbleupon fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2fguningblog.top%2fpost%2fmachine_safty%2f&amp;description=%e6%89%a7%e8%a1%8c%e5%ae%89%e5%85%a8%e7%a0%94%e7%a9%b6%e5%92%8c%e5%ae%9e%e8%b7%b5" target="_blank"
+       title="Share on Pinterest">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-pinterest fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+              </ul>
+            </section>
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://guningblog.top/post/regular_expression/" data-toggle="tooltip" data-placement="top" title="正则表达式">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:guningh@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/guning" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="www.guningblog.top">guning</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2018
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://guningblog.top/">guning</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.49</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="http://guningblog.top/js/main.js"></script>
+<script src="http://guningblog.top/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="http://guningblog.top/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+
