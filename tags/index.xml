@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>guningh@gmail.com (guning)</managingEditor>
     <webMaster>guningh@gmail.com (guning)</webMaster>
-    <lastBuildDate>Wed, 17 Oct 2018 16:32:52 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 22 Oct 2018 15:44:50 +0800</lastBuildDate>
     
 	<atom:link href="http://guningblog.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Class</title>
+      <link>http://guningblog.top/tags/class/</link>
+      <pubDate>Mon, 22 Oct 2018 15:44:50 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>http://guningblog.top/tags/class/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Docker</title>
@@ -31,11 +40,38 @@
     </item>
     
     <item>
+      <title>Object</title>
+      <link>http://guningblog.top/tags/object/</link>
+      <pubDate>Mon, 22 Oct 2018 16:02:02 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>http://guningblog.top/tags/object/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Php</title>
+      <link>http://guningblog.top/tags/php/</link>
+      <pubDate>Mon, 22 Oct 2018 16:02:02 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>http://guningblog.top/tags/php/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Regex</title>
       <link>http://guningblog.top/tags/regex/</link>
       <pubDate>Mon, 15 Oct 2018 20:52:44 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
       <guid>http://guningblog.top/tags/regex/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Struct</title>
+      <link>http://guningblog.top/tags/struct/</link>
+      <pubDate>Mon, 22 Oct 2018 16:02:02 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>http://guningblog.top/tags/struct/</guid>
       <description></description>
     </item>
     

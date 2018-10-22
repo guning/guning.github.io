@@ -7,10 +7,37 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>guningh@gmail.com (guning)</managingEditor>
     <webMaster>guningh@gmail.com (guning)</webMaster>
-    <lastBuildDate>Wed, 17 Oct 2018 16:32:52 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 22 Oct 2018 16:20:31 +0800</lastBuildDate>
     
 	<atom:link href="http://guningblog.top/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>HTTP简单介绍</title>
+      <link>http://guningblog.top/post/http_simple/</link>
+      <pubDate>Mon, 22 Oct 2018 16:20:31 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>http://guningblog.top/post/http_simple/</guid>
+      <description>本文简单介绍了HTTP协议的格式和通信过程</description>
+    </item>
+    
+    <item>
+      <title>面向对象设计的五大原则</title>
+      <link>http://guningblog.top/post/object_principle/</link>
+      <pubDate>Mon, 22 Oct 2018 16:02:02 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>http://guningblog.top/post/object_principle/</guid>
+      <description>在面向对象中，类是基本单位，各种设计都是围绕着类来进行的。类与类之间的关系，构成了设计模式的大部分内容</description>
+    </item>
+    
+    <item>
+      <title>深入学习PHP——面向对象</title>
+      <link>http://guningblog.top/post/php_object/</link>
+      <pubDate>Mon, 22 Oct 2018 15:44:50 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>http://guningblog.top/post/php_object/</guid>
+      <description>本文为《深入学习PHP》一书第一章的笔记整理</description>
+    </item>
     
     <item>
       <title>执行安全研究和实践</title>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>深入学习PHP——面向对象</title>
+  <meta property="og:title" content="深入学习PHP——面向对象" />
+  <meta name="twitter:title" content="深入学习PHP——面向对象" />
+  <meta name="description" content="本文为《深入学习PHP》一书第一章的笔记整理">
+  <meta property="og:description" content="本文为《深入学习PHP》一书第一章的笔记整理">
+  <meta name="twitter:description" content="本文为《深入学习PHP》一书第一章的笔记整理">
+  <meta name="author" content="guning"/>
+  <meta property="og:image" content="http://guningblog.top/img/color.jpg" />
+  <meta name="twitter:image" content="http://guningblog.top/img/color.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="http://guningblog.top/post/php_object/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="guning" />
+
+  <meta name="generator" content="Hugo 0.49" />
+  <link rel="canonical" href="http://guningblog.top/post/php_object/" />
+  <link rel="alternate" href="http://guningblog.top/index.xml" type="application/rss+xml" title="guning">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="http://guningblog.top/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="http://guningblog.top/css/highlight.min.css" /><link rel="stylesheet" href="http://guningblog.top/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://guningblog.top/">guning</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="guning" href="http://guningblog.top/">
+            <img class="avatar-img" src="http://guningblog.top/img/color.jpg" alt="guning" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>深入学习PHP——面向对象</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on October 22, 2018
+  
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 1 minutes (150 words)
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<p>本文为《深入学习PHP》一书第一章的笔记整理</p>
+
+<h2 id="第一章-面向对象思想的核心概念">第一章 面向对象思想的核心概念</h2>
+
+<h3 id="一-oopl-object-oriented-programming-language-面向对象编程">一、OOPL（Object-Oriented Programming Language）面向对象编程</h3>
+
+<h4 id="一-对象的-形">一）对象的“形”</h4>
+
+<ul>
+<li>一个类的设计需要能充分展示其最重要的属性和方法，并且能与其他事物相区分</li>
+<li>类是属性和方法的集合</li>
+</ul>
+
+<h5 id="1-对象就是一堆数据">1. 对象就是一堆数据</h5>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">print_r((array)$student);
+var_dump($student);</code></pre></div>
+<h5 id="2-序列化-将一个对象存储起来">2. 序列化→将一个对象存储起来</h5>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">//序列化student对象并存储
+$str = serialize($student);
+file_put_contents(&#39;store.txt&#39;,$str);
+//反序列化对象并显示
+$str = file_get_contents(&#39;store.txt&#39;);
+$student = unserialize($str);  </code></pre></div>
+<ul>
+<li>序列化和反序列化均需引入类的对象的定义，否则会因找不到类定义二报错</li>
+<li>序列化储存的是对象的属性和类名（用于）</li>
+<li>类是由属性和方法组成的，而对象则是属性的集合。由同一个类生成的不同对象，拥有各自不同的属性，但同享了类的代码空间中的方法区域的代码</li>
+</ul>
+
+<h4 id="二-对象的-本">二）对象的“本”</h4>
+
+<ul>
+<li>对象也是一种普通的变量，与变量不同的在于其携带了对象的属性和类的入口</li>
+</ul>
+
+<h4 id="三-对象与数组">三）对象与数组</h4>
+
+<ul>
+<li>区别：对象还有指针，指向其所属的类</li>
+</ul>
+
+<h4 id="四-对象与类">四）对象与类</h4>
+
+<ul>
+<li>类=属性+操作的模板，对象则把属性具体化，然后交给类</li>
+<li>对象=属性数据，不包含方法，但内有指向父类的指针，类中有方法</li>
+<li>方法描述不同属性所导致的不同表现</li>
+<li>区分类的办法是实例化出对象进行比较</li>
+</ul>
+
+<h4 id="五-魔术方法的应用-有特殊作用的方法">五）魔术方法的应用（__，有特殊作用的方法）</h4>
+
+<ul>
+<li><code>__construct()</code>构造方法，实例化对象时运行，用于属性赋值、连接数据库等等</li>
+<li><code>__destruct()</code>析构方法，在对象的所有引用都被删除/对象被显式销毁 时运行</li>
+<li><code>__set()</code>和<code>__get()</code>方法（magic.php）
+重载：指一个类中可以定义参数列表不同但名字相同的多个方法
+（如：Java中允许多个构造函数，php只允许一个） 用于定义不存在的类属性</li>
+<li><code>__call()</code>和<code>__callStatic()</code>方法（simpleOrm.php）
+用于定义不存在或不可访问的类方法
+使动态创建成为可能</li>
+<li><code>__toString()</code>方法：将对象转化成字符串时触发</li>
+</ul>
+
+<h4 id="六-继承与多态">六）继承与多态</h4>
+
+<h5 id="1-类的组合和继承-继承-是-像-父与子-组合-需要-整体与局部">1. 类的组合和继承(继承===“是、像”、“父与子”，组合===“需要”、“整体与局部”)</h5>
+
+<h6 id="组合-在类中创建对象进行使用">组合：在类中创建对象进行使用</h6>
+
+<h6 id="继承-类与类之间的父子关系-子类继承父类的方法和属性">继承：类与类之间的父子关系，子类继承父类的方法和属性</h6>
+
+<ul>
+<li>在子类中，parent关键字代表父类，self代表自身，用::运算符，又叫范围解析操作符，调用父类的方法</li>
+<li>继承的缺陷：
+~ 继承破坏封装性
+~ 继承是紧耦合的
+~ 继承扩展复杂
+~ 不恰当的使用继承可能违反现实世界的逻辑（角色与权限问题）</li>
+<li>继承的使用
+~ 被继承的类要设计好，继承树不要超过三层
+~ 使用final修饰符对不能被继承的类进行修饰。使用final修饰符不仅可防止重要的方法被非法覆写，又能给编辑器寻找优化的机会
+~ 优先考虑使用组合关系来提高代码的可重用性
+~ 子类是一种特殊的类型，而不只是父类的一个角色
+~ 子类扩展，而不是覆盖或者使父类的功能失效
+~ 底层代码多用组合，顶层/业务层代码多用继承。底层用组合可以提高效率，避免对象臃肿。顶层代码用继承可以提高灵活性，让业务使用更方便。</li>
+</ul>
+
+<h6 id="traits">traits</h6>
+
+<p>PHP 5.4中的traits，是新引入的特性，中文还真不知道如何准确翻译好。其实际的目的，是为了有的场合想用多继承，但PHP又没多继承，于是就发明了这样的一个东西。
+Traits可以理解为一组能被不同的类都能调用到的方法集合，但Traits不是类！不能被实例化。先来例子看下语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+<span class="k">trait</span> <span class="nx">myTrait</span><span class="p">{</span>
+    <span class="k">function</span> <span class="nf">traitMethod1</span><span class="p">(){}</span>
+    <span class="k">function</span> <span class="nf">traitMethod2</span><span class="p">(){}</span>
+<span class="p">}</span>   
+<span class="c1">//然后是调用这个traits,语法为：
+</span><span class="c1"></span><span class="k">class</span> <span class="nc">myClass</span><span class="p">{</span>
+    <span class="k">use</span> <span class="nx">myTrait</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">//这样就可以通过use myTraits，调用Traits中的方法了，比如：
+</span><span class="c1"></span><span class="nv">$obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">myClass</span><span class="p">();</span>
+<span class="nv">$obj</span><span class="o">-&gt;</span> <span class="na">traitMethod1</span> <span class="p">();</span>
+<span class="nv">$obj</span><span class="o">-&gt;</span> <span class="na">traitMethod2</span> <span class="p">();</span> 
+</code></pre></div>
+<h5 id="2-各种语言中的多态">2. 各种语言中的多态</h5>
+
+<ul>
+<li>多态就是同一对象在运行时的具体化<br /></li>
+<li>多态性是一种通过多种状态或阶段描述相同对象的编程方式</li>
+<li>意义在于：实际开发中，只要关心一个接口或基类的编程，而不必关心一个对象所属的具体类</li>
+<li>区别是否是多态的关键在于看对象是否属于同一类型。如果把它们看成同一类型，调用相同的函数，返回了不同的结果，那么他就是多态。</li>
+<li>多态的本质就是<code>if...else</code> ，只是实现的层级不同</li>
+</ul>
+
+<h3 id="二-面向接口编程">二、面向接口编程</h3>
+
+<h4 id="一-概念">一）概念：</h4>
+
+<ul>
+<li>狭义：interface<br /></li>
+<li>广义：任何一个对外服务的接口<br /></li>
+</ul>
+
+<h4 id="二-接口的作用">二）接口的作用</h4>
+
+<ul>
+<li>对于实现接口的所有类，必须实现接口的全部方法</li>
+<li>接口为抽象而生</li>
+<li>接口===强制规范和契约</li>
+
+<li><p>java中认为接口就是一种类型（type）</p>
+
+<h4 id="3-总结">3、总结</h4></li>
+
+<li><p>接口作为一种规范和契约存在。作为规范，接口应该保证可用性；作为契约，接口应该保证可控性</p></li>
+
+<li><p>接口只是一个声明，一旦使用<code>interface</code>关键字，就应该实现它。由程序员实现的接口叫外部接口，由系统实现的接口叫内部接口</p></li>
+
+<li><p>PHP接口的两个不足：1、没有契约限制； 2、缺少足够多的内部接口</p></li>
+</ul>
+
+<h3 id="三-反射">三、反射</h3>
+
+<h4 id="一-概念-1">一）概念</h4>
+
+<p>反射指在PHP运行状态中，扩展分析PHP程序，导出或提取出相关类、方法、属性、参数等的详细信息，包括注释</p>
+
+<h4 id="二-使用">二）使用</h4>
+
+<h4 id="三-反射的作用">三）反射的作用</h4>
+
+<p>用于文档生成、动态代理（proxy.php）——流行框架的内部实现基本都会用到该特性</p>
+
+<h3 id="四-异常和错误处理">四、异常和错误处理</h3>
+
+<p>把“描述在正常过程中做什么事”的代码和“出了问题怎么办”的代码进行分离</p>
+
+<h4 id="一-如何使用异常处理机制">一）如何使用异常处理机制</h4>
+
+<ul>
+<li>对程序的悲观预测</li>
+<li>程序的需要和对业务的关注（保证业务一致性）<br /></li>
+<li>语言级别的健壮性要求<br />
+<code>try...catch</code>的好处：可以把异常造成的逻辑中断破坏到最小范围内，并且经过补救处理后不影响业务逻辑的完整性；乱抛异常和只抛不捕获异常，或者捕获而不补救异常，会导致数据混乱。</li>
+</ul>
+
+<h4 id="二-php的错误级别">二）PHP的错误级别</h4>
+
+<p>PHP错误就是会使脚本运行不正常的情况，包括warning、noctice、deprecated、fetal error、prase error等。</p>
+
+<h4 id="三-php中的错误处理机制">三）PHP中的错误处理机制</h4>
+
+<ul>
+<li><code>set_error_handler(error_function,error_types)</code>，会完全绕过原来的报错处理函数（注意要die()&amp;&amp;@会失效）</li>
+</ul>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="http://guningblog.top//tags/php/">php</a>&nbsp;
+            
+              <a href="http://guningblog.top//tags/class/">class</a>&nbsp;
+            
+              <a href="http://guningblog.top//tags/object/">object</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <ul class="list-inline footer-links">
+                
+
+
+<li>
+    <a href="//twitter.com/share?url=http%3a%2f%2fguningblog.top%2fpost%2fphp_object%2f&amp;text=%e6%b7%b1%e5%85%a5%e5%ad%a6%e4%b9%a0PHP%e2%80%94%e2%80%94%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1&amp;via="
+       target="_blank" alt="" title="Share on Twitter">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//plus.google.com/share?url=http%3a%2f%2fguningblog.top%2fpost%2fphp_object%2f" target="_blank" title="Share on Google Plus">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fguningblog.top%2fpost%2fphp_object%2f" target="_blank" title="Share on Facebook">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//reddit.com/submit?url=http%3a%2f%2fguningblog.top%2fpost%2fphp_object%2f&amp;title=%e6%b7%b1%e5%85%a5%e5%ad%a6%e4%b9%a0PHP%e2%80%94%e2%80%94%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1" target="_blank" title="Share on Reddit">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-reddit fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2fguningblog.top%2fpost%2fphp_object%2f&amp;title=%e6%b7%b1%e5%85%a5%e5%ad%a6%e4%b9%a0PHP%e2%80%94%e2%80%94%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1" target="_blank"
+       title="Share on LinkedIn">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2fguningblog.top%2fpost%2fphp_object%2f&amp;title=%e6%b7%b1%e5%85%a5%e5%ad%a6%e4%b9%a0PHP%e2%80%94%e2%80%94%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1" target="_blank"
+       title="Share on StumbleUpon">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-stumbleupon fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2fguningblog.top%2fpost%2fphp_object%2f&amp;description=%e6%b7%b1%e5%85%a5%e5%ad%a6%e4%b9%a0PHP%e2%80%94%e2%80%94%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1" target="_blank"
+       title="Share on Pinterest">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-pinterest fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+              </ul>
+            </section>
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://guningblog.top/post/machine_safty/" data-toggle="tooltip" data-placement="top" title="执行安全研究和实践">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="http://guningblog.top/post/object_principle/" data-toggle="tooltip" data-placement="top" title="面向对象设计的五大原则">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:guningh@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/guning" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="www.guningblog.top">guning</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2018
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://guningblog.top/">guning</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.49</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="http://guningblog.top/js/main.js"></script>
+<script src="http://guningblog.top/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="http://guningblog.top/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

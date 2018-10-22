@@ -5,20 +5,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Posts</title>
-  <meta property="og:title" content="Posts" />
-  <meta name="twitter:title" content="Posts" />
+  <title>HTTP简单介绍</title>
+  <meta property="og:title" content="HTTP简单介绍" />
+  <meta name="twitter:title" content="HTTP简单介绍" />
+  <meta name="description" content="本文简单介绍了HTTP协议的格式和通信过程">
+  <meta property="og:description" content="本文简单介绍了HTTP协议的格式和通信过程">
+  <meta name="twitter:description" content="本文简单介绍了HTTP协议的格式和通信过程">
   <meta name="author" content="guning"/>
   <meta property="og:image" content="http://guningblog.top/img/color.jpg" />
   <meta name="twitter:image" content="http://guningblog.top/img/color.jpg" />
   <meta name="twitter:card" content="summary" />
-  <meta property="og:url" content="http://guningblog.top/post/" />
+  <meta property="og:url" content="http://guningblog.top/post/http_simple/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="guning" />
 
   <meta name="generator" content="Hugo 0.49" />
-  <link rel="canonical" href="http://guningblog.top/post/" />
-  <link rel="alternate" href="http://guningblog.top/post/index.xml" type="application/rss+xml" title="guning">
+  <link rel="canonical" href="http://guningblog.top/post/http_simple/" />
+  <link rel="alternate" href="http://guningblog.top/index.xml" type="application/rss+xml" title="guning">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -154,7 +157,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>Posts</h1>
+                <h1>HTTP简单介绍</h1>
               
               
               
@@ -166,7 +169,7 @@
   
   
   &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 0 minutes (0 words)
+  <i class="fa fa-clock-o"></i> 1 minutes (36 words)
   
   
 </span>
@@ -181,216 +184,182 @@
   </header>
 
     
-  <div class="container" role="main">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
         
-        <div class="posts-list">
-          
-            <article class="post-preview">
-              <a href="http://guningblog.top/post/http_simple/">
-                <h2 class="post-title">HTTP简单介绍</h2>
 
-                
-              </a>
+<p>本文简单介绍了HTTP协议的格式和通信过程</p>
 
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on October 22, 2018
-  
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 1 minutes (36 words)
-  
-  
-</span>
+<h3 id="定义">定义</h3>
 
+<ul>
+<li>HTTP协议是一个基于应用层的通信规范</li>
+<li>HTTP协议是一个无状态的应用层协议，同一个客户端的这次请求和上次没有对应关系（问答式交互）</li>
+</ul>
 
-              </p>
-              <div class="post-entry">
-                
-                  本文简单介绍了HTTP协议的格式和通信过程
-                  <a href="http://guningblog.top/post/http_simple/" class="post-read-more">[Read More]</a>
-                
-              </div>
+<h3 id="http协议工作流程">HTTP协议工作流程</h3>
 
-              
+<p>工作流程分为建立连接-请求-响应</p>
 
-            </article>
-          
-            <article class="post-preview">
-              <a href="http://guningblog.top/post/object_principle/">
-                <h2 class="post-title">面向对象设计的五大原则</h2>
+<h4 id="请求-请求行-消息报头-请求正文">请求：请求行，消息报头，请求正文</h4>
 
-                
-              </a>
+<ul>
+<li>请求行：Method Request-URL HTTP-Version CRLF</li>
+</ul>
 
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on October 22, 2018
-  
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 2 minutes (345 words)
-  
-  
-</span>
+<blockquote>
+<p>Method：请求方法（GET、POST、HEAD、PUT、DELETE、TRACE、CONNECT、OPTIONS）<br />
+Request-UR<strong>I</strong>：统一的资源标识符（<a href="http://baike.baidu.com/  link?url=Lr3IclAItT8N-d8KncYstyz5ct7auKx9LIUEvYBPmzfuCr3cJRQKUURQmAMEnTzqrr6XDpuzdCcACUc2I78hkK" title="URI是什么">URI是什么</a>）<br />
+HTTP-Version：请求的HTTP协议版本<br />
+CRLF：回车和换行</p>
+</blockquote>
 
+<h4 id="响应-状态行-消息报头-响应正文">响应：状态行、消息报头、响应正文</h4>
 
-              </p>
-              <div class="post-entry">
-                
-                  在面向对象中，类是基本单位，各种设计都是围绕着类来进行的。类与类之间的关系，构成了设计模式的大部分内容
-                  <a href="http://guningblog.top/post/object_principle/" class="post-read-more">[Read More]</a>
-                
-              </div>
+<ul>
+<li>状态行：HTTP-Version Status-Code Reason-Rhrase CRLF</li>
+</ul>
 
-              
-                <div class="blog-tags">
-                  
-                    <a href="http://guningblog.top//tags/php/">php</a>&nbsp;
-                  
-                    <a href="http://guningblog.top//tags/object/">object</a>&nbsp;
-                  
-                    <a href="http://guningblog.top//tags/struct/">struct</a>&nbsp;
-                  
-                </div>
-              
+<blockquote>
+<p>HTTP-Version：服务器HTTP协议的版本<br />
+Status-Code：服务器发回的响应状态代码<br />
+Reason-Rhrase：状态代码的文本描述</p>
+</blockquote>
 
-            </article>
-          
-            <article class="post-preview">
-              <a href="http://guningblog.top/post/php_object/">
-                <h2 class="post-title">深入学习PHP——面向对象</h2>
+<ul>
+<li>状态代码的类别</li>
+</ul>
 
-                
-              </a>
+<blockquote>
+<p>1xx：指示信息——请求已接收，继续处理<br />
+2xx：成功——请求已被成功接收、理解、接受（200：OK，客户端请求成功）<br />
+3xx：重定向——要完成请求必须进行进一步的操作<br />
+4xx：客户端错误——请求有语法错误或请求无法实现（400、401、403、404）<br />
+5xx：服务端错误——服务器未能实现合法的请求（500、503）</p>
+</blockquote>
 
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on October 22, 2018
-  
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 1 minutes (150 words)
-  
-  
-</span>
+<h3 id="消息报头-格式-名字-空格-值">消息报头：格式“名字+:+空格+值”</h3>
+
+<ul>
+<li>普通报头：少数普通报头用于请求和响应信息，但不用于被传输的实体，只用于传输信息（如缓存控制、连接控制）</li>
+<li>请求报头：内含客户端向服务器传递请求时的附加信息以及客户端自身的信息</li>
+<li>响应报头：内含服务器向客户端传递响应时的附加信息以及服务器自身的信息，同时也包括Request-UR<strong>I</strong>所标识的资源进行下一步访问的信息</li>
+<li>实体报头：定义了关于实体正文和请求所标识的资源的元信息，例如有无实体正文</li>
+</ul>
+
+<h4 id="几个重要的消息报头">几个重要的消息报头</h4>
+
+<ul>
+<li>Host：头域指定请求资源的Internet主机和端口号</li>
+</ul>
 
 
-              </p>
-              <div class="post-entry">
-                
-                  本文为《深入学习PHP》一书第一章的笔记整理
-                  <a href="http://guningblog.top/post/php_object/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="http://guningblog.top//tags/php/">php</a>&nbsp;
-                  
-                    <a href="http://guningblog.top//tags/class/">class</a>&nbsp;
-                  
-                    <a href="http://guningblog.top//tags/object/">object</a>&nbsp;
-                  
-                </div>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="http://guningblog.top/post/machine_safty/">
-                <h2 class="post-title">执行安全研究和实践</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on October 17, 2018
-  
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 1 minutes (165 words)
-  
-  
-</span>
-
-
-              </p>
-              <div class="post-entry">
-                
-                  安全小组扫描到了项目的安全缺陷，在某个版本进行了预研和修复，于是整理出此文
-                  <a href="http://guningblog.top/post/machine_safty/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="http://guningblog.top//tags/linux/">linux</a>&nbsp;
-                  
-                    <a href="http://guningblog.top//tags/docker/">docker</a>&nbsp;
-                  
-                </div>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="http://guningblog.top/post/regular_expression/">
-                <h2 class="post-title">正则表达式</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on October 15, 2018
-  
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 2 minutes (271 words)
-  
-  
-</span>
-
-
-              </p>
-              <div class="post-entry">
-                
-                  A Regular Expression is a sequence of characters for defining a search pattern.
-                  <a href="http://guningblog.top/post/regular_expression/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="http://guningblog.top//tags/regex/">regex</a>&nbsp;
-                  
-                </div>
-              
-
-            </article>
-          
-        </div>
         
-      </div>
+
+        
+            <hr/>
+            <section id="social-share">
+              <ul class="list-inline footer-links">
+                
+
+
+<li>
+    <a href="//twitter.com/share?url=http%3a%2f%2fguningblog.top%2fpost%2fhttp_simple%2f&amp;text=HTTP%e7%ae%80%e5%8d%95%e4%bb%8b%e7%bb%8d&amp;via="
+       target="_blank" alt="" title="Share on Twitter">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//plus.google.com/share?url=http%3a%2f%2fguningblog.top%2fpost%2fhttp_simple%2f" target="_blank" title="Share on Google Plus">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fguningblog.top%2fpost%2fhttp_simple%2f" target="_blank" title="Share on Facebook">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//reddit.com/submit?url=http%3a%2f%2fguningblog.top%2fpost%2fhttp_simple%2f&amp;title=HTTP%e7%ae%80%e5%8d%95%e4%bb%8b%e7%bb%8d" target="_blank" title="Share on Reddit">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-reddit fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2fguningblog.top%2fpost%2fhttp_simple%2f&amp;title=HTTP%e7%ae%80%e5%8d%95%e4%bb%8b%e7%bb%8d" target="_blank"
+       title="Share on LinkedIn">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2fguningblog.top%2fpost%2fhttp_simple%2f&amp;title=HTTP%e7%ae%80%e5%8d%95%e4%bb%8b%e7%bb%8d" target="_blank"
+       title="Share on StumbleUpon">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-stumbleupon fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2fguningblog.top%2fpost%2fhttp_simple%2f&amp;description=HTTP%e7%ae%80%e5%8d%95%e4%bb%8b%e7%bb%8d" target="_blank"
+       title="Share on Pinterest">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-pinterest fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+              </ul>
+            </section>
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://guningblog.top/post/object_principle/" data-toggle="tooltip" data-placement="top" title="面向对象设计的五大原则">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
     </div>
   </div>
+</div>
 
     <footer>
   <div class="container">
