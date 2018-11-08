@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>guningh@gmail.com (guning)</managingEditor>
     <webMaster>guningh@gmail.com (guning)</webMaster>
-    <lastBuildDate>Mon, 22 Oct 2018 16:20:31 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 01 Nov 2018 10:52:55 +0800</lastBuildDate>
     
 	<atom:link href="http://guningblog.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Tour_of_go</title>
+      <link>http://guningblog.top/post/tour_of_go/</link>
+      <pubDate>Thu, 01 Nov 2018 10:52:55 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>http://guningblog.top/post/tour_of_go/</guid>
+      <description>Go官方文档 给出了许多学习go语言的途径，我这里就先从第一个“A Tour of Go” 下手，入门一下go语言。</description>
+    </item>
     
     <item>
       <title>HTTP简单介绍</title>

@@ -220,7 +220,7 @@
 <h4 id="2-overlayfs">2) overlayFS</h4>
 
 <p><code>overlayFS</code>是一个面向linux的文件系统服务，linux内核3.18版本将其合入，主要功能是采用分层的特性将不同的文件联合挂载在一起，挂载后的具体结构如下：
-<center><img src="/img/overlayFS.jpg" alt="图2-1" /><br><b>图2-1 overlayFS挂载结构图</b></center><br>
+<center><img src="/img/machine_safty_1.jpg" alt="图2-1" /><br><b>图2-1 overlayFS挂载结构图</b></center><br>
 使用<code>overlayFS</code>进行文件挂载的时候，可以指定<code>lower</code>层（可以指定多个）和<code>upper</code>层，将其合入<code>merged</code>层，<code>merged</code>的文件结构就相当于<code>lower</code> + <code>upper</code>。如果出现了文件冲突（如图中fileb），取<code>upper</code>层的数据。在<code>merged</code>层对文件和目录的增删改，在不同层表现不同，<code>upper</code>层的文件和目录都是可读写属性，而<code>lower</code>层的只有读属性。具体处理策略在这里不详细列出，感兴趣可点击<a href="http://blog.lucode.net/linux/play-with-overlayfs.html">这里</a>阅读（btw，操作过程中涉及<code>work</code>层，其内容对用户不可见，故不进行阐述）。<br />
 相比直接复制文件到某一目录然后借助chroot进行文件系统隔离，<code>overlayFS</code>更加节省存储空间。下面给出<code>overlayFS</code>的使用方式：</p>
 <div class="highlight"><pre class="chroma">mount -t overlay overlay -o lowerdir=lower1:lower2:lower3,upperdir=upper,workdir=work merged</pre></div>
