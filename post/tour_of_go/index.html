@@ -5,9 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Tour_of_go</title>
-  <meta property="og:title" content="Tour_of_go" />
-  <meta name="twitter:title" content="Tour_of_go" />
+  <title>Golang基础语法</title>
+  <meta property="og:title" content="Golang基础语法" />
+  <meta name="twitter:title" content="Golang基础语法" />
   <meta name="description" content="Go官方文档 给出了许多学习go语言的途径，我这里就先从第一个“A Tour of Go” 下手，入门一下go语言。">
   <meta property="og:description" content="Go官方文档 给出了许多学习go语言的途径，我这里就先从第一个“A Tour of Go” 下手，入门一下go语言。">
   <meta name="twitter:description" content="Go官方文档 给出了许多学习go语言的途径，我这里就先从第一个“A Tour of Go” 下手，入门一下go语言。">
@@ -157,7 +157,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>Tour_of_go</h1>
+                <h1>Golang基础语法</h1>
               
               
               
@@ -169,7 +169,7 @@
   
   
   &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 2 minutes (364 words)
+  <i class="fa fa-clock-o"></i> 2 minutes (409 words)
   
   
 </span>
@@ -498,6 +498,24 @@
     <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
         <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">f</span><span class="p">())</span>
     <span class="p">}</span>
+<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">//矩阵生成图片
+</span><span class="c1"></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;golang.org/x/tour/pic&#34;</span>
+
+<span class="kd">func</span> <span class="nx">Pic</span><span class="p">(</span><span class="nx">dx</span><span class="p">,</span> <span class="nx">dy</span> <span class="kt">int</span><span class="p">)</span> <span class="p">[][]</span><span class="kt">uint8</span> <span class="p">{</span>
+    <span class="nx">res</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]([]</span><span class="kt">uint8</span><span class="p">),</span> <span class="nx">dy</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">dy</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">uint8</span><span class="p">,</span> <span class="nx">dx</span><span class="p">)</span>
+        <span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nx">dx</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+            <span class="nx">res</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nb">uint8</span><span class="p">((</span><span class="nx">i</span><span class="o">*</span><span class="nx">j</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">res</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">pic</span><span class="p">.</span><span class="nx">Show</span><span class="p">(</span><span class="nx">Pic</span><span class="p">)</span>
 <span class="p">}</span></code></pre></div>
 <h3 id="后记">后记</h3>
 
@@ -514,7 +532,7 @@
 
 
 <li>
-    <a href="//twitter.com/share?url=http%3a%2f%2fguningblog.top%2fpost%2ftour_of_go%2f&amp;text=Tour_of_go&amp;via="
+    <a href="//twitter.com/share?url=http%3a%2f%2fguningblog.top%2fpost%2ftour_of_go%2f&amp;text=Golang%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95&amp;via="
        target="_blank" alt="" title="Share on Twitter">
         <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
@@ -545,7 +563,7 @@
 
 
 <li>
-    <a href="//reddit.com/submit?url=http%3a%2f%2fguningblog.top%2fpost%2ftour_of_go%2f&amp;title=Tour_of_go" target="_blank" title="Share on Reddit">
+    <a href="//reddit.com/submit?url=http%3a%2f%2fguningblog.top%2fpost%2ftour_of_go%2f&amp;title=Golang%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95" target="_blank" title="Share on Reddit">
          <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
                 <i class="fa fa-reddit fa-stack-1x fa-inverse"></i>
@@ -555,7 +573,7 @@
 
 
 <li>
-    <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2fguningblog.top%2fpost%2ftour_of_go%2f&amp;title=Tour_of_go" target="_blank"
+    <a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2fguningblog.top%2fpost%2ftour_of_go%2f&amp;title=Golang%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95" target="_blank"
        title="Share on LinkedIn">
          <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
@@ -566,7 +584,7 @@
 
 
 <li>
-    <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2fguningblog.top%2fpost%2ftour_of_go%2f&amp;title=Tour_of_go" target="_blank"
+    <a href="//www.stumbleupon.com/submit?url=http%3a%2f%2fguningblog.top%2fpost%2ftour_of_go%2f&amp;title=Golang%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95" target="_blank"
        title="Share on StumbleUpon">
         <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
@@ -577,7 +595,7 @@
 
 
 <li>
-    <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2fguningblog.top%2fpost%2ftour_of_go%2f&amp;description=Tour_of_go" target="_blank"
+    <a href="//www.pinterest.com/pin/create/button/?url=http%3a%2f%2fguningblog.top%2fpost%2ftour_of_go%2f&amp;description=Golang%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95" target="_blank"
        title="Share on Pinterest">
          <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
@@ -598,6 +616,10 @@
               <a href="http://guningblog.top/post/http_simple/" data-toggle="tooltip" data-placement="top" title="HTTP简单介绍">&larr; Previous Post</a>
             </li>
           
+          
+            <li class="next">
+              <a href="http://guningblog.top/post/tour_of_go_1/" data-toggle="tooltip" data-placement="top" title="Golang的方法和接口">Next Post &rarr;</a>
+            </li>
           
         </ul>
       

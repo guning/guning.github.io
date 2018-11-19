@@ -7,13 +7,31 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>guningh@gmail.com (guning)</managingEditor>
     <webMaster>guningh@gmail.com (guning)</webMaster>
-    <lastBuildDate>Thu, 01 Nov 2018 10:52:55 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 16 Nov 2018 15:28:53 +0800</lastBuildDate>
     
 	<atom:link href="http://guningblog.top/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Tour_of_go</title>
+      <title>Go语言的协程和通道（channels）</title>
+      <link>http://guningblog.top/post/tour_of_go_2/</link>
+      <pubDate>Fri, 16 Nov 2018 15:28:53 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>http://guningblog.top/post/tour_of_go_2/</guid>
+      <description>go的协程概念声名远扬，究竟何许物也，这章就来看看。</description>
+    </item>
+    
+    <item>
+      <title>Golang的方法和接口</title>
+      <link>http://guningblog.top/post/tour_of_go_1/</link>
+      <pubDate>Mon, 12 Nov 2018 09:35:16 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>http://guningblog.top/post/tour_of_go_1/</guid>
+      <description>本文为《A tour of go》第二章节的内容学习总结</description>
+    </item>
+    
+    <item>
+      <title>Golang基础语法</title>
       <link>http://guningblog.top/post/tour_of_go/</link>
       <pubDate>Thu, 01 Nov 2018 10:52:55 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
@@ -72,7 +90,7 @@
       <pubDate>Mon, 15 Oct 2018 20:50:56 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
       <guid>http://guningblog.top/purelands/test/</guid>
-      <description>许栋挺傻逼</description>
+      <description>even shabi, yo shabi coo cool di</description>
     </item>
     
     <item>
