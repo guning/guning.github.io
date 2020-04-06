@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docker on guning</title>
-    <link>http://guningblog.top/tags/docker/</link>
+    <link>http://blog.guningblog.top/tags/docker/</link>
     <description>Recent content in Docker on guning</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>guningh@gmail.com (guning)</managingEditor>
     <webMaster>guningh@gmail.com (guning)</webMaster>
     <lastBuildDate>Wed, 17 Oct 2018 16:32:52 +0800</lastBuildDate>
     
-	<atom:link href="http://guningblog.top/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://blog.guningblog.top/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>执行安全研究和实践</title>
-      <link>http://guningblog.top/post/machine_safty/</link>
+      <link>http://blog.guningblog.top/post/machine_safty/</link>
       <pubDate>Wed, 17 Oct 2018 16:32:52 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>http://guningblog.top/post/machine_safty/</guid>
+      <guid>http://blog.guningblog.top/post/machine_safty/</guid>
       <description>安全小组扫描到了项目的安全缺陷，在某个版本进行了预研和修复，于是整理出此文</description>
     </item>
     
