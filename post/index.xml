@@ -2,85 +2,85 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on guning</title>
-    <link>http://blog.guningblog.top/post/</link>
+    <link>https://blog.guningblog.top/post/</link>
     <description>Recent content in Posts on guning</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>guningh@gmail.com (guning)</managingEditor>
     <webMaster>guningh@gmail.com (guning)</webMaster>
     <lastBuildDate>Fri, 16 Nov 2018 15:28:53 +0800</lastBuildDate>
     
-	<atom:link href="http://blog.guningblog.top/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.guningblog.top/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Go语言的协程和通道（channels）</title>
-      <link>http://blog.guningblog.top/post/tour_of_go_2/</link>
+      <link>https://blog.guningblog.top/post/tour_of_go_2/</link>
       <pubDate>Fri, 16 Nov 2018 15:28:53 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>http://blog.guningblog.top/post/tour_of_go_2/</guid>
+      <guid>https://blog.guningblog.top/post/tour_of_go_2/</guid>
       <description>go的协程概念声名远扬，究竟何许物也，这章就来看看。</description>
     </item>
     
     <item>
       <title>Golang的方法和接口</title>
-      <link>http://blog.guningblog.top/post/tour_of_go_1/</link>
+      <link>https://blog.guningblog.top/post/tour_of_go_1/</link>
       <pubDate>Mon, 12 Nov 2018 09:35:16 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>http://blog.guningblog.top/post/tour_of_go_1/</guid>
+      <guid>https://blog.guningblog.top/post/tour_of_go_1/</guid>
       <description>本文为《A tour of go》第二章节的内容学习总结</description>
     </item>
     
     <item>
       <title>Golang基础语法</title>
-      <link>http://blog.guningblog.top/post/tour_of_go/</link>
+      <link>https://blog.guningblog.top/post/tour_of_go/</link>
       <pubDate>Thu, 01 Nov 2018 10:52:55 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>http://blog.guningblog.top/post/tour_of_go/</guid>
+      <guid>https://blog.guningblog.top/post/tour_of_go/</guid>
       <description>Go官方文档 给出了许多学习go语言的途径，我这里就先从第一个“A Tour of Go” 下手，入门一下go语言。</description>
     </item>
     
     <item>
       <title>HTTP简单介绍</title>
-      <link>http://blog.guningblog.top/post/http_simple/</link>
+      <link>https://blog.guningblog.top/post/http_simple/</link>
       <pubDate>Mon, 22 Oct 2018 16:20:31 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>http://blog.guningblog.top/post/http_simple/</guid>
+      <guid>https://blog.guningblog.top/post/http_simple/</guid>
       <description>本文简单介绍了HTTP协议的格式和通信过程</description>
     </item>
     
     <item>
       <title>面向对象设计的五大原则</title>
-      <link>http://blog.guningblog.top/post/object_principle/</link>
+      <link>https://blog.guningblog.top/post/object_principle/</link>
       <pubDate>Mon, 22 Oct 2018 16:02:02 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>http://blog.guningblog.top/post/object_principle/</guid>
+      <guid>https://blog.guningblog.top/post/object_principle/</guid>
       <description>在面向对象中，类是基本单位，各种设计都是围绕着类来进行的。类与类之间的关系，构成了设计模式的大部分内容</description>
     </item>
     
     <item>
       <title>深入学习PHP——面向对象</title>
-      <link>http://blog.guningblog.top/post/php_object/</link>
+      <link>https://blog.guningblog.top/post/php_object/</link>
       <pubDate>Mon, 22 Oct 2018 15:44:50 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>http://blog.guningblog.top/post/php_object/</guid>
+      <guid>https://blog.guningblog.top/post/php_object/</guid>
       <description>本文为《深入学习PHP》一书第一章的笔记整理</description>
     </item>
     
     <item>
       <title>执行安全研究和实践</title>
-      <link>http://blog.guningblog.top/post/machine_safty/</link>
+      <link>https://blog.guningblog.top/post/machine_safty/</link>
       <pubDate>Wed, 17 Oct 2018 16:32:52 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>http://blog.guningblog.top/post/machine_safty/</guid>
+      <guid>https://blog.guningblog.top/post/machine_safty/</guid>
       <description>安全小组扫描到了项目的安全缺陷，在某个版本进行了预研和修复，于是整理出此文</description>
     </item>
     
     <item>
       <title>正则表达式</title>
-      <link>http://blog.guningblog.top/post/regular_expression/</link>
+      <link>https://blog.guningblog.top/post/regular_expression/</link>
       <pubDate>Mon, 15 Oct 2018 20:52:44 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>http://blog.guningblog.top/post/regular_expression/</guid>
+      <guid>https://blog.guningblog.top/post/regular_expression/</guid>
       <description>A Regular Expression is a sequence of characters for defining a search pattern.</description>
     </item>
     
