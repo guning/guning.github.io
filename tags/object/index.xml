@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Object on guning</title>
-    <link>https://guningblog.top/tags/object/</link>
+    <link>http://blog.guningblog.top/tags/object/</link>
     <description>Recent content in Object on guning</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>guningh@gmail.com (guning)</managingEditor>
     <webMaster>guningh@gmail.com (guning)</webMaster>
     <lastBuildDate>Mon, 22 Oct 2018 16:02:02 +0800</lastBuildDate>
     
-	<atom:link href="https://guningblog.top/tags/object/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://blog.guningblog.top/tags/object/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>面向对象设计的五大原则</title>
-      <link>https://guningblog.top/post/object_principle/</link>
+      <link>http://blog.guningblog.top/post/object_principle/</link>
       <pubDate>Mon, 22 Oct 2018 16:02:02 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>https://guningblog.top/post/object_principle/</guid>
+      <guid>http://blog.guningblog.top/post/object_principle/</guid>
       <description>在面向对象中，类是基本单位，各种设计都是围绕着类来进行的。类与类之间的关系，构成了设计模式的大部分内容</description>
     </item>
     
     <item>
       <title>深入学习PHP——面向对象</title>
-      <link>https://guningblog.top/post/php_object/</link>
+      <link>http://blog.guningblog.top/post/php_object/</link>
       <pubDate>Mon, 22 Oct 2018 15:44:50 +0800</pubDate>
       <author>guningh@gmail.com (guning)</author>
-      <guid>https://guningblog.top/post/php_object/</guid>
+      <guid>http://blog.guningblog.top/post/php_object/</guid>
       <description>本文为《深入学习PHP》一书第一章的笔记整理</description>
     </item>
     
