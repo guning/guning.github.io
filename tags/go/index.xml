@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go on guning</title>
+    <link>https://blog.guningblog.top/tags/go/</link>
+    <description>Recent content in Go on guning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>guningh@gmail.com (guning)</managingEditor>
+    <webMaster>guningh@gmail.com (guning)</webMaster>
+    <lastBuildDate>Thu, 28 May 2020 11:53:13 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.guningblog.top/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>GO语言的slice结构</title>
+      <link>https://blog.guningblog.top/post/go_slice/</link>
+      <pubDate>Thu, 28 May 2020 11:53:13 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>https://blog.guningblog.top/post/go_slice/</guid>
+      <description>面试的时候面试官问了个关于slice的题，当时没想明白，后来搞明白了。</description>
+    </item>
+    
+  </channel>
+</rss>

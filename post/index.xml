@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>guningh@gmail.com (guning)</managingEditor>
     <webMaster>guningh@gmail.com (guning)</webMaster>
-    <lastBuildDate>Mon, 20 Apr 2020 17:16:56 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 28 May 2020 11:53:13 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.guningblog.top/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GO语言的slice结构</title>
+      <link>https://blog.guningblog.top/post/go_slice/</link>
+      <pubDate>Thu, 28 May 2020 11:53:13 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>https://blog.guningblog.top/post/go_slice/</guid>
+      <description>面试的时候面试官问了个关于slice的题，当时没想明白，后来搞明白了。</description>
+    </item>
     
     <item>
       <title>排序算法</title>

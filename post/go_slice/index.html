@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>GO语言的slice结构</title>
+  <meta property="og:title" content="GO语言的slice结构" />
+  <meta name="twitter:title" content="GO语言的slice结构" />
+  <meta name="description" content="面试的时候面试官问了个关于slice的题，当时没想明白，后来搞明白了。">
+  <meta property="og:description" content="面试的时候面试官问了个关于slice的题，当时没想明白，后来搞明白了。">
+  <meta name="twitter:description" content="面试的时候面试官问了个关于slice的题，当时没想明白，后来搞明白了。">
+  <meta name="author" content="guning"/>
+  <meta property="og:image" content="https://blog.guningblog.top/img/color.jpg" />
+  <meta name="twitter:image" content="https://blog.guningblog.top/img/color.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://blog.guningblog.top/post/go_slice/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="guning" />
+
+  <meta name="generator" content="Hugo 0.49" />
+  <link rel="canonical" href="https://blog.guningblog.top/post/go_slice/" />
+  <link rel="alternate" href="https://blog.guningblog.top/index.xml" type="application/rss+xml" title="guning">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://blog.guningblog.top/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://blog.guningblog.top/css/highlight.min.css" /><link rel="stylesheet" href="https://blog.guningblog.top/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://blog.guningblog.top/">guning</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="guning" href="https://blog.guningblog.top/">
+            <img class="avatar-img" src="https://blog.guningblog.top/img/color.jpg" alt="guning" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>GO语言的slice结构</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on May 28, 2020
+  
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 3 minutes (432 words)
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<p>面试的时候面试官问了个关于slice的题，当时没想明白，后来搞明白了。</p>
+
+<p>先说结论涉及的考点：值传递、slice扩容</p>
+
+<h2 id="一-题目">一、题目</h2>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">a</span><span class="p">(</span><span class="nx">d</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
+    <span class="nx">d</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">d</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span>
+    <span class="nx">a</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<p>问：输出什么？</p>
+
+<h2 id="二-思考">二、思考</h2>
+
+<p>看到题目的瞬间，如果是其他语言，输出肯定是<code>[1 2 3]</code>。但既然这么问了，那答案肯定不会那么简单。可惜憨憨如我，明明当天下午有看到slice的底层数据结构，却没上心，就这么黄了。</p>
+
+<p>那么答案最终是什么呢？是<code>[10 2 3]</code>。</p>
+
+<h2 id="三-分析">三、分析</h2>
+
+<p>先看下slice的数据结构</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Slice</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">array</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+    <span class="nx">len</span> <span class="kt">int</span>
+    <span class="nx">cap</span> <span class="kt">int</span>
+<span class="p">}</span></code></pre></div>
+<p>一如前面提及的结论，考点有二：</p>
+
+<p>一）值传递</p>
+
+<p>GO语言在进行函数调用传参时，采用的是值传递的方式。表面上看我们对<code>a</code>函数的调用是<code>a(d []int)</code>，实际上编译之后传入的是从main函数里复制的<code>Slice</code>结构体，而该结构体内存放实际数组的元素是一个指针，在被调用函数里操作该指针自然就会影响到调用方的值，所以切片第一个元素就变成10了。</p>
+
+<p>那为什么<code>append</code>新增的元素没有生效呢？这就跟slice的扩容逻辑有关。</p>
+
+<p>二）slice扩容逻辑</p>
+
+<p><code>main</code>函数开头初始化<code>d</code>切片的时候，<code>d</code>的<code>len=3;cap=3</code>；在被调用函数<code>a</code>里，进行<code>append</code>操作，发现容量不够，进行扩容；而扩容的时候是重新分配一个新cap长度的内存空间，再把原先数组的值复制到新的空间里。所以在上面例子中，扩容后的<code>d</code>的<code>array</code>元素值，即底层数组的起始地址，跟原先不一样，可以看看以下例程：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">a</span><span class="p">(</span><span class="nx">d</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="c1">//0xc000014140
+</span><span class="c1"></span>    <span class="nx">d</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="c1">//0xc0000180c0
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">d</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="c1">//0xc000014140
+</span><span class="c1"></span>    <span class="nx">a</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="c1">//0xc000014140
+</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span><span class="c1">//[10 2 3]
+</span><span class="c1"></span><span class="p">}</span></code></pre></div>
+<p>也可以从汇编的结果里面看到上述操作：</p>
+<div class="highlight"><pre class="chroma"><code class="language-vb" data-lang="vb"># go tool compile -N -l -S test_addr.go
+        0x00f8 00248 (test_addr.go:11)  MOVQ    &#34;&#34;.d+184(SP), AX
+        0x0100 00256 (test_addr.go:11)  LEAQ    1(AX), CX
+        0x0104 00260 (test_addr.go:11)  MOVQ    &#34;&#34;.d+192(SP), DX
+        0x010c 00268 (test_addr.go:11)  PCDATA  $0, $3
+        0x010c 00268 (test_addr.go:11)  PCDATA  $1, $3
+        0x010c 00268 (test_addr.go:11)  MOVQ    &#34;&#34;.d+176(SP), BX
+        0x0114 00276 (test_addr.go:11)  CMPQ    CX, DX
+        0x0117 00279 (test_addr.go:11)  JLS     286
+        0x0119 00281 (test_addr.go:11)  JMP     450
+        0x011e 00286 (test_addr.go:11)  PCDATA  $0, $-2
+        0x011e 00286 (test_addr.go:11)  PCDATA  $1, $-2
+        0x011e 00286 (test_addr.go:11)  JMP     288
+        0x0120 00288 (test_addr.go:11)  PCDATA  $0, $3
+        0x0120 00288 (test_addr.go:11)  PCDATA  $1, $3
+        0x0120 00288 (test_addr.go:11)  MOVQ    $4, (BX)(AX*8)
+        0x0128 00296 (test_addr.go:11)  MOVQ    BX, &#34;&#34;.d+176(SP)
+        0x0130 00304 (test_addr.go:11)  MOVQ    CX, &#34;&#34;.d+184(SP)
+        0x0138 00312 (test_addr.go:11)  MOVQ    DX, &#34;&#34;.d+192(SP)</code></pre></div>
+<p>可以看到，程序先将数组的三个元素复制到AX/DX/BX寄存器，然后初始化一段内存空间，再把数值插到新的内存空间里</p>
+
+<p>在这里说一下slice扩容后容量大小的计算方法：</p>
+<div class="highlight"><pre class="chroma">    if oldCap * 2 &lt; cap {
+        newCap = cap
+    } else {
+        if oldLen &lt; 1024 {
+            newCap = oldCap * 2
+        } else {
+            newCap = oldCap * 1.25
+        }
+    }</pre></div>
+<p>好了，真相大白！</p>
+
+<h2 id="深入思考">深入思考</h2>
+
+<p>那如果我在main函数里预先分配好足够的容量，然后再在a函数里<code>append</code>，是不是在最终打印出来的结果会是<code>[10 2 3 4]</code>呢？代码如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">a</span><span class="p">(</span><span class="nx">d</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="c1">//0xc000014140
+</span><span class="c1"></span>    <span class="nx">d</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="c1">//0xc000014140
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">d</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span>
+    <span class="nx">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">2</span>
+    <span class="nx">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="mi">3</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="c1">//0xc000014140
+</span><span class="c1"></span>    <span class="nx">a</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="c1">//0xc000014140
+</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span><span class="c1">//[10 2 3]
+</span><span class="c1"></span><span class="p">}</span></code></pre></div>
+<p>切片的array指针的值是一样的，为什么结果会是<code>[10 2 3]</code>呢？很简单，<strong>值传递</strong>的时候，slice里的len和cap属性并不是传的地址，所以main里的<code>d</code>的len还是3。这个时候，如果我们通过指针操作是可以获取到新append进去的值的（没有发生slice扩容），代码如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">a</span><span class="p">(</span><span class="nx">d</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="nx">d</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">d</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span>
+    <span class="nx">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">2</span>
+    <span class="nx">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="mi">3</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="nx">a</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="c1">//获取指针
+</span><span class="c1"></span>    <span class="nx">q</span> <span class="o">:=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span> <span class="o">+</span> <span class="mi">8</span>
+    <span class="c1">//打印指针对应的地址存储的值
+</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">int</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="nx">q</span><span class="p">)))</span><span class="c1">//4
+</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<h2 id="关于slice和普通数组">关于slice和普通数组</h2>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">a</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">}</span><span class="c1">//声明数组，不可append
+</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span><span class="c1">//[0 1 2 3 4 5 6 7 8 9] 10 10
+</span><span class="c1"></span>    <span class="nx">b</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="c1">//新建slice，共享数组已分配的的cap 9，len则为3
+</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span><span class="c1">//[1 2 3] 3 9
+</span><span class="c1"></span>    <span class="nx">c</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">[</span><span class="mi">7</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span><span class="c1">//cap 3 len 3
+</span><span class="c1"></span>    <span class="nx">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1111</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">c</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">c</span><span class="p">))</span><span class="c1">//[1111 8 9] 3 3
+</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span><span class="c1">//[0 1 2 3 4 5 6 1111 8 9] 10 10（因为共享同个地址空间的缘故）
+</span><span class="c1"></span>    <span class="nx">c</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="mi">2222</span><span class="p">)</span>
+    <span class="nx">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="mi">3333</span><span class="c1">//发生扩容，起始地址发生改变，不会修改到数组a
+</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">c</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">c</span><span class="p">))</span><span class="c1">//[3333 8 9 2222] 4 6
+</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span><span class="c1">//[0 1 2 3 4 5 6 1111 8 9] 10 10
+</span><span class="c1"></span><span class="p">}</span></code></pre></div>
+<h2 id="参考资料">参考资料</h2>
+
+<ul>
+<li><a href="https://juejin.im/post/5a9f543a6fb9a028cb2d2b91">Go中slice作为参数传递的一些“坑”</a></li>
+<li><a href="https://colobu.com/2018/12/29/get-assembly-output-for-go-programs/">得到Go程序的汇编代码的方法</a></li>
+<li><a href="https://www.bilibili.com/video/BV1CV411d7W8">slice类型存什么？make和new？slice和数组？扩容规则？</a></li>
+</ul>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://blog.guningblog.top//tags/go/">GO</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <ul class="list-inline footer-links">
+                
+
+
+<li>
+    <a href="//twitter.com/share?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fgo_slice%2f&amp;text=GO%e8%af%ad%e8%a8%80%e7%9a%84slice%e7%bb%93%e6%9e%84&amp;via="
+       target="_blank" alt="" title="Share on Twitter">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//plus.google.com/share?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fgo_slice%2f" target="_blank" title="Share on Google Plus">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.guningblog.top%2fpost%2fgo_slice%2f" target="_blank" title="Share on Facebook">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//reddit.com/submit?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fgo_slice%2f&amp;title=GO%e8%af%ad%e8%a8%80%e7%9a%84slice%e7%bb%93%e6%9e%84" target="_blank" title="Share on Reddit">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-reddit fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fgo_slice%2f&amp;title=GO%e8%af%ad%e8%a8%80%e7%9a%84slice%e7%bb%93%e6%9e%84" target="_blank"
+       title="Share on LinkedIn">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fgo_slice%2f&amp;title=GO%e8%af%ad%e8%a8%80%e7%9a%84slice%e7%bb%93%e6%9e%84" target="_blank"
+       title="Share on StumbleUpon">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-stumbleupon fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fgo_slice%2f&amp;description=GO%e8%af%ad%e8%a8%80%e7%9a%84slice%e7%bb%93%e6%9e%84" target="_blank"
+       title="Share on Pinterest">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-pinterest fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+              </ul>
+            </section>
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://blog.guningblog.top/post/sort/" data-toggle="tooltip" data-placement="top" title="排序算法">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:guningh@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/guning" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="blog.guningblog.top">guning</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2020
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://blog.guningblog.top/">guning</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.49</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://blog.guningblog.top/js/main.js"></script>
+<script src="https://blog.guningblog.top/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://blog.guningblog.top/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+
