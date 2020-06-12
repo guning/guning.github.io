@@ -169,7 +169,7 @@
   
   
   &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 3 minutes (451 words)
+  <i class="fa fa-clock-o"></i> 3 minutes (458 words)
   
   
 </span>
@@ -275,6 +275,8 @@ false</code></pre></div>
 true
 0x57bb60, 0x57bb60</code></pre></div>
 <p>可以看到，增加了打印地址之后，编译器将<code>&amp;ad</code>和<code>&amp;bd</code>这两个指针逃逸到了堆，且这两个指针指向同一个地址，那么为什么会指向同一个地址呢？看看汇编代码的区别：</p>
+
+<p><code>go tool compile  -l -S -N filename</code></p>
 
 <p><a href="#e1">示例一：原始代码</a>go汇编结果（片段）</p>
 <div class="highlight"><pre class="chroma"><code class="language-vb" data-lang="vb">    0x0021 00033 (main.go:11)       MOVB    $0, &#34;&#34;..autotmp_3+55(SP)
