@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>&#34;薛定谔&#34;的GO</title>
+  <meta property="og:title" content="&#34;薛定谔&#34;的GO" />
+  <meta name="twitter:title" content="&#34;薛定谔&#34;的GO" />
+  <meta name="description" content="本来我是在研究空struct特性和用途的，谁曾想居然会遇到“薛定谔的代码”！">
+  <meta property="og:description" content="本来我是在研究空struct特性和用途的，谁曾想居然会遇到“薛定谔的代码”！">
+  <meta name="twitter:description" content="本来我是在研究空struct特性和用途的，谁曾想居然会遇到“薛定谔的代码”！">
+  <meta name="author" content="guning"/>
+  <meta property="og:image" content="https://blog.guningblog.top/img/color.jpg" />
+  <meta name="twitter:image" content="https://blog.guningblog.top/img/color.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://blog.guningblog.top/post/schr%C3%B6dinger_go/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="guning" />
+
+  <meta name="generator" content="Hugo 0.49" />
+  <link rel="canonical" href="https://blog.guningblog.top/post/schr%C3%B6dinger_go/" />
+  <link rel="alternate" href="https://blog.guningblog.top/index.xml" type="application/rss+xml" title="guning">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://blog.guningblog.top/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://blog.guningblog.top/css/highlight.min.css" /><link rel="stylesheet" href="https://blog.guningblog.top/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://blog.guningblog.top/">guning</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="guning" href="https://blog.guningblog.top/">
+            <img class="avatar-img" src="https://blog.guningblog.top/img/color.jpg" alt="guning" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>&#34;薛定谔&#34;的GO</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on June 3, 2020
+  
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 3 minutes (451 words)
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<p>本来我是在研究空struct特性和用途的，谁曾想居然会遇到“薛定谔的代码”！</p>
+
+<h2 id="背景">背景</h2>
+
+<p>在查看空struct相关资料的时候，想写写代码看下特性是不是如<a href="https://blog.csdn.net/qq_34777600/article/details/87195673">博客</a>所说，于是写下了如下代码：</p>
+
+<p><a name="e1">示例一</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&#34;fmt&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">A</span> <span class="kd">struct</span><span class="p">{}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">ad</span><span class="p">,</span> <span class="nx">bd</span> <span class="nx">A</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">ad</span> <span class="o">==</span> <span class="o">&amp;</span><span class="nx">bd</span><span class="p">)</span><span class="c1">// false
+</span><span class="c1"></span><span class="p">}</span></code></pre></div>
+<p><code>false</code>，不是同一个地址，好像跟博客所说的不一样？而且<a href="https://golang.org/ref/spec#Size_and_alignment_guarantees">官方对空struct的存储地址</a>描述似乎也不够清晰，用了<strong>may</strong>。</p>
+
+<blockquote>
+<p>A struct or array type has size zero if it contains no fields (or elements, respectively) that have a size greater than zero. Two distinct zero-size variables <strong>may</strong> have the same address in memory.</p>
+</blockquote>
+
+<p>这就有点奇怪，于是我将二者地址都打出来看看：</p>
+
+<p><a name="e2">示例二</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&#34;fmt&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">A</span> <span class="kd">struct</span><span class="p">{}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">ad</span><span class="p">,</span> <span class="nx">bd</span> <span class="nx">A</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">ad</span> <span class="o">==</span> <span class="o">&amp;</span><span class="nx">bd</span><span class="p">)</span><span class="c1">// true
+</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%p, %p\n&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">ad</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">bd</span><span class="p">)</span><span class="c1">// 0x57bb60, 0x57bb60
+</span><span class="c1"></span><span class="p">}</span></code></pre></div>
+<p>输出怎么变成<code>true</code>了？“薛定谔”的代码？</p>
+
+<h2 id="思考分析">思考分析</h2>
+
+<p>从上面的程序来看，因为打印地址是出现在比较地址之前，所以可以排除是程序运行时因为Printf操作导致的地址发生改变，那么只可能是编译器的某种优化逻辑造成的这个问题。</p>
+
+<p>登上stack overflow，我的问题似乎已经有了答案：</p>
+
+<ul>
+<li><a href="https://stackoverflow.com/questions/52421103/why-struct-arrays-comparing-has-different-result">why struct arrays comparing has different result</a></li>
+<li><a href="https://stackoverflow.com/questions/48052722/addresses-of-slices-of-empty-structs">Addresses of slices of empty structs</a></li>
+</ul>
+
+<h2 id="内存逃逸">内存逃逸</h2>
+
+<p>通过这两个问题的回复，内存逃逸似乎是一个可以接受的答案，来看下对逃逸分析的结果对比：</p>
+
+<p><code>go run -gcflags '-m' filename</code></p>
+
+<p><a href="#e1">示例一：原始代码</a>逃逸分析结果</p>
+<div class="highlight"><pre class="chroma"><code class="language-vb" data-lang="vb"># command-line-arguments
+./main.go:11:20: inlining call to fmt.Println
+./main.go:11:25: &amp;ad == &amp;bd escapes to heap
+./main.go:11:20: main []interface {} literal does not escape
+./main.go:11:20: io.Writer(os.Stdout) escapes to heap
+&lt;autogenerated&gt;:1: (*File).close .this does not escape
+false</code></pre></div>
+<p><a href="#e2">示例二：加了一句打印地址</a>逃逸分析结果</p>
+<div class="highlight"><pre class="chroma"><code class="language-vb" data-lang="vb"># command-line-arguments
+./main.go:11:20: inlining call to fmt.Println
+./main.go:12:12: inlining call to fmt.Printf
+./main.go:10:13: moved to heap: ad
+./main.go:10:17: moved to heap: bd
+./main.go:11:25: &amp;ad == &amp;bd escapes to heap
+./main.go:11:20: main []interface {} literal does not escape
+./main.go:11:20: io.Writer(os.Stdout) escapes to heap
+./main.go:12:25: &amp;ad escapes to heap
+./main.go:12:30: &amp;bd escapes to heap
+./main.go:12:12: main []interface {} literal does not escape
+./main.go:12:12: io.Writer(os.Stdout) escapes to heap
+&lt;autogenerated&gt;:1: (*File).close .this does not escape
+true
+0x57bb60, 0x57bb60</code></pre></div>
+<p>可以看到，增加了打印地址之后，编译器将<code>&amp;ad</code>和<code>&amp;bd</code>这两个指针逃逸到了堆，且这两个指针指向同一个地址，那么为什么会指向同一个地址呢？看看汇编代码的区别：</p>
+
+<p><a href="#e1">示例一：原始代码</a>go汇编结果（片段）</p>
+<div class="highlight"><pre class="chroma"><code class="language-vb" data-lang="vb">    0x0021 00033 (main.go:11)       MOVB    $0, &#34;&#34;..autotmp_3+55(SP)
+    0x0026 00038 (main.go:11)       PCDATA  $1, $1
+    0x0026 00038 (main.go:11)       XORPS   X0, X0
+    0x0029 00041 (main.go:11)       MOVUPS  X0, &#34;&#34;..autotmp_2+64(SP)
+    0x002e 00046 (main.go:11)       PCDATA  $0, $1
+    0x002e 00046 (main.go:11)       PCDATA  $1, $0
+    0x002e 00046 (main.go:11)       LEAQ    &#34;&#34;..autotmp_2+64(SP), AX
+    0x0033 00051 (main.go:11)       MOVQ    AX, &#34;&#34;..autotmp_5+56(SP)
+    0x0038 00056 (main.go:11)       TESTB   AL, (AX)
+    0x003a 00058 (main.go:11)       MOVBLZX &#34;&#34;..autotmp_3+55(SP), CX
+    0x003f 00063 (main.go:11)       PCDATA  $0, $2
+    0x003f 00063 (main.go:11)       LEAQ    type.bool(SB), DX</code></pre></div>
+<p><a href="#e2">示例二：加了一句打印地址</a>go汇编结果（片段）</p>
+<div class="highlight"><pre class="chroma"><code class="language-vb" data-lang="vb">    0x002f 00047 (main.go:11)   LEAQ    runtime.zerobase(SB), AX
+    0x0036 00054 (main.go:10)   PCDATA  $0, $0
+    0x0036 00054 (main.go:10)   PCDATA  $1, $1
+    0x0036 00054 (main.go:10)   MOVQ    AX, &#34;&#34;.&amp;ad+112(SP)
+    0x003b 00059 (main.go:10)   PCDATA  $0, $1
+    0x003b 00059 (main.go:10)   LEAQ    runtime.zerobase(SB), AX
+    0x0042 00066 (main.go:10)   PCDATA  $1, $2
+    0x0042 00066 (main.go:10)   MOVQ    AX, &#34;&#34;.&amp;bd+104(SP)
+    0x0047 00071 (main.go:11)   PCDATA  $0, $2
+    0x0047 00071 (main.go:11)   MOVQ    &#34;&#34;.&amp;ad+112(SP), CX
+    0x004c 00076 (main.go:11)   PCDATA  $0, $0
+    0x004c 00076 (main.go:11)   CMPQ    CX, AX
+    0x004f 00079 (main.go:11)   SETEQ   &#34;&#34;..autotmp_5+71(SP)
+    0x0054 00084 (main.go:11)   PCDATA  $1, $3
+    0x0054 00084 (main.go:11)   XORPS   X0, X0
+    0x0057 00087 (main.go:11)   MOVUPS  X0, &#34;&#34;..autotmp_4+120(SP)
+    0x005c 00092 (main.go:11)   PCDATA  $0, $1
+    0x005c 00092 (main.go:11)   PCDATA  $1, $2
+    0x005c 00092 (main.go:11)   LEAQ    &#34;&#34;..autotmp_4+120(SP), AX
+    0x0061 00097 (main.go:11)   MOVQ    AX, &#34;&#34;..autotmp_10+96(SP)
+    0x0066 00102 (main.go:11)   TESTB   AL, (AX)
+    0x0068 00104 (main.go:11)   MOVBLZX &#34;&#34;..autotmp_5+71(SP), CX
+    0x006d 00109 (main.go:11)   PCDATA  $0, $3
+    0x006d 00109 (main.go:11)   LEAQ    type.bool(SB), DX</code></pre></div>
+<p>对于示例一，编译器并没有为<code>&amp;ad</code>和<code>&amp;bd</code>分配<code>runtime.zerobase()</code>，而示例二有。也就是<code>runtime.zerobase()</code>是go语言为空struct分配地址用的，且对于每一个空struct，他们指向的地址相同（在堆上）。</p>
+
+<p>对于空struct，官方所说的<strong>may</strong>含义就在这里，实际是否指向相同的地址，还要看编译器堆代码的分析后如何决策。</p>
+
+<h2 id="总结">总结</h2>
+
+<p>虽然追踪到最后跟内存逃逸没啥关系，但也是收获颇丰，不仅稍微了解了内存逃逸，还顺手搞懂了go汇编的几个关键字的意思，想必对后续的学习会有不小的帮助。</p>
+
+<h2 id="参考资料">参考资料</h2>
+
+<ul>
+<li>《Go语言核心编程》 李文塔</li>
+<li>以上stack overflow的各位大佬</li>
+</ul>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://blog.guningblog.top//tags/go/">GO</a>&nbsp;
+            
+          </div>
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <ul class="list-inline footer-links">
+                
+
+
+<li>
+    <a href="//twitter.com/share?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fschr%25C3%25B6dinger_go%2f&amp;text=%22%e8%96%9b%e5%ae%9a%e8%b0%94%22%e7%9a%84GO&amp;via="
+       target="_blank" alt="" title="Share on Twitter">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//plus.google.com/share?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fschr%25C3%25B6dinger_go%2f" target="_blank" title="Share on Google Plus">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.guningblog.top%2fpost%2fschr%25C3%25B6dinger_go%2f" target="_blank" title="Share on Facebook">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//reddit.com/submit?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fschr%25C3%25B6dinger_go%2f&amp;title=%22%e8%96%9b%e5%ae%9a%e8%b0%94%22%e7%9a%84GO" target="_blank" title="Share on Reddit">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-reddit fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fschr%25C3%25B6dinger_go%2f&amp;title=%22%e8%96%9b%e5%ae%9a%e8%b0%94%22%e7%9a%84GO" target="_blank"
+       title="Share on LinkedIn">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fschr%25C3%25B6dinger_go%2f&amp;title=%22%e8%96%9b%e5%ae%9a%e8%b0%94%22%e7%9a%84GO" target="_blank"
+       title="Share on StumbleUpon">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-stumbleupon fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fschr%25C3%25B6dinger_go%2f&amp;description=%22%e8%96%9b%e5%ae%9a%e8%b0%94%22%e7%9a%84GO" target="_blank"
+       title="Share on Pinterest">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-pinterest fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+              </ul>
+            </section>
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://blog.guningblog.top/post/go_slice/" data-toggle="tooltip" data-placement="top" title="GO语言的slice结构">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:guningh@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/guning" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="blog.guningblog.top">guning</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2020
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://blog.guningblog.top/">guning</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.49</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://blog.guningblog.top/js/main.js"></script>
+<script src="https://blog.guningblog.top/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://blog.guningblog.top/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>guningh@gmail.com (guning)</managingEditor>
     <webMaster>guningh@gmail.com (guning)</webMaster>
-    <lastBuildDate>Thu, 28 May 2020 11:53:13 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 03 Jun 2020 22:30:41 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.guningblog.top/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>&#34;薛定谔&#34;的GO</title>
+      <link>https://blog.guningblog.top/post/schr%C3%B6dinger_go/</link>
+      <pubDate>Wed, 03 Jun 2020 22:30:41 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>https://blog.guningblog.top/post/schr%C3%B6dinger_go/</guid>
+      <description>本来我是在研究空struct特性和用途的，谁曾想居然会遇到“薛定谔的代码”！</description>
+    </item>
     
     <item>
       <title>GO语言的slice结构</title>
