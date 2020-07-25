@@ -5,20 +5,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Posts</title>
-  <meta property="og:title" content="Posts" />
-  <meta name="twitter:title" content="Posts" />
+  <title>Leetcode</title>
+  <meta property="og:title" content="Leetcode" />
+  <meta name="twitter:title" content="Leetcode" />
+  <meta name="description" content="本文为阅读km文章《天机阁——lock_free》记录">
+  <meta property="og:description" content="本文为阅读km文章《天机阁——lock_free》记录">
+  <meta name="twitter:description" content="本文为阅读km文章《天机阁——lock_free》记录">
   <meta name="author" content="guning"/>
   <meta property="og:image" content="https://blog.guningblog.top/img/color.jpg" />
   <meta name="twitter:image" content="https://blog.guningblog.top/img/color.jpg" />
   <meta name="twitter:card" content="summary" />
-  <meta property="og:url" content="https://blog.guningblog.top/post/" />
+  <meta property="og:url" content="https://blog.guningblog.top/post/lock_free/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="guning" />
 
   <meta name="generator" content="Hugo 0.49" />
-  <link rel="canonical" href="https://blog.guningblog.top/post/" />
-  <link rel="alternate" href="https://blog.guningblog.top/post/index.xml" type="application/rss+xml" title="guning">
+  <link rel="canonical" href="https://blog.guningblog.top/post/lock_free/" />
+  <link rel="alternate" href="https://blog.guningblog.top/index.xml" type="application/rss+xml" title="guning">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -154,7 +157,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>Posts</h1>
+                <h1>Leetcode</h1>
               
               
               
@@ -162,11 +165,11 @@
                 <span class="post-meta">
   
   
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on October 17, 2018
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on January 3, 2019
   
   
   &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 0 minutes (0 words)
+  <i class="fa fa-clock-o"></i> 1 minutes (65 words)
   
   
 </span>
@@ -181,106 +184,161 @@
   </header>
 
     
-  <div class="container" role="main">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>本文为阅读km文章《天机阁——lock_free》记录</p>
+
+<p>传统的解决并发问题的方式——使用同步原语：临界区、锁、条件变量等来进行共享数据访问一致性的保障。但却使原先的并行设计失效。</p>
+
+<p>使用lock_free的共享数据来解决问题：
+1. Transactional memory &mdash; 事务性内存（参考mysql事务管理）
+2. Fine-grained algorithms &mdash; 细粒度(锁)算法（如自旋锁）
+用于任何 锁持有时间 少于将一个线程阻塞和唤醒所需要的时间的场合</p>
+
+<ol>
+<li>Lock-free data structures &mdash; 无锁数据结构：无锁队列、无锁容器：b+tree list hashmap</li>
+</ol>
+
+<p><a href="https://github.com/khizmax/libcds">https://github.com/khizmax/libcds</a></p>
+
+<p>原子操作：读写、交换</p>
+
+<p>是否需要原子操作的原则：
+任何时刻，只要存在两个或多个线程并发地对同一个共享变量进行操作，并且这些操作中的其中一个是执行了写操作，那么所有的线程都必须使用原子操作。</p>
+
+<p>底层能保证的原子操作：对齐内存的整型存储</p>
+
+<p>交换：Compare-And-Swap(CAS)
+1、实现了原子性CAS原语 — X86、Intel Itanium、Sparc等处理器架构
+2、实现LL/SC对(load-linked/store-conditional) PowerPC, MIPS, Alpha, ARM 等处理器架构（解决ABA问题）</p>
+
+<p>倘若CAS在循环中（这是一种基本的CAS应用模式），循环中不存在成千上万的运算（循环体是轻量级和简单的,本例的无锁堆栈），使用compare_exchange_weak。否则，采用强类型的compare_exchange_strong。</p>
+
+<p>内存安全回收问题</p>
+
+<p>方式 Lock Free Reference Counting、Hazard Pointer、Epoch Based Reclamation、Quiescent State Based Reclamation</p>
+
+<p>无锁技术会导致使编译器和执行期的内存乱序成为问题（例如改变变量的赋值顺序）</p>
+
+<p>内存乱序约定：不能改变单线程程序的执行行为 &ndash; 单线程程序总是满足Program Order(所见即所得)</p>
+
+<p>cpu cache为什么能加速：
+[1] 时间的局部性(Temporal locality)：如果某个数据被访问了，那么不久的将来它很有可能被再次访问到。典型的例子就是循环，循环的代码被处理器重复执行，将循环代码放在Cache中，那么只是在第一次的时候需要耗时较长去内存取，以后这些代码都能被内核从cache中快速访问到。
+[2] 空间的局部性(Spatial)：如果某个数据被访问了，那么它相临的数据很可能很快被访问到。典型的例子就是数组，数组中的元素常常安装顺序依次被程序访问。</p>
+
+<p>MESI协议</p>
+
+
         
-        <div class="posts-list">
-          
-            <article class="post-preview">
-              <a href="https://blog.guningblog.top/post/machine_safty/">
-                <h2 class="post-title">执行安全研究和实践</h2>
 
-                
-              </a>
-
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on October 17, 2018
-  
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 1 minutes (165 words)
-  
-  
-</span>
-
-
-              </p>
-              <div class="post-entry">
-                
-                  安全小组扫描到了项目的安全缺陷，在某个版本进行了预研和修复，于是整理出此文
-                  <a href="https://blog.guningblog.top/post/machine_safty/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://blog.guningblog.top//tags/linux/">linux</a>&nbsp;
-                  
-                    <a href="https://blog.guningblog.top//tags/docker/">docker</a>&nbsp;
-                  
-                </div>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.guningblog.top/post/regular_expression/">
-                <h2 class="post-title">正则表达式</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on October 15, 2018
-  
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 2 minutes (271 words)
-  
-  
-</span>
-
-
-              </p>
-              <div class="post-entry">
-                
-                  A Regular Expression is a sequence of characters for defining a search pattern.
-                  <a href="https://blog.guningblog.top/post/regular_expression/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://blog.guningblog.top//tags/regex/">regex</a>&nbsp;
-                  
-                </div>
-              
-
-            </article>
-          
-        </div>
         
-          <ul class="pager main-pager">
-            
-              <li class="previous">
-                <a href="/post/page/1/">&larr; Newer Posts</a>
-              </li>
-            
-            
-          </ul>
+            <hr/>
+            <section id="social-share">
+              <ul class="list-inline footer-links">
+                
+
+
+<li>
+    <a href="//twitter.com/share?url=https%3a%2f%2fblog.guningblog.top%2fpost%2flock_free%2f&amp;text=Leetcode&amp;via="
+       target="_blank" alt="" title="Share on Twitter">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//plus.google.com/share?url=https%3a%2f%2fblog.guningblog.top%2fpost%2flock_free%2f" target="_blank" title="Share on Google Plus">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.guningblog.top%2fpost%2flock_free%2f" target="_blank" title="Share on Facebook">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//reddit.com/submit?url=https%3a%2f%2fblog.guningblog.top%2fpost%2flock_free%2f&amp;title=Leetcode" target="_blank" title="Share on Reddit">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-reddit fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fblog.guningblog.top%2fpost%2flock_free%2f&amp;title=Leetcode" target="_blank"
+       title="Share on LinkedIn">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fblog.guningblog.top%2fpost%2flock_free%2f&amp;title=Leetcode" target="_blank"
+       title="Share on StumbleUpon">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-stumbleupon fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fblog.guningblog.top%2fpost%2flock_free%2f&amp;description=Leetcode" target="_blank"
+       title="Share on Pinterest">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-pinterest fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+              </ul>
+            </section>
         
-      </div>
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://blog.guningblog.top/post/leetcode/" data-toggle="tooltip" data-placement="top" title="Leetcode">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://blog.guningblog.top/post/sort/" data-toggle="tooltip" data-placement="top" title="排序算法">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
     </div>
   </div>
+</div>
 
     <footer>
   <div class="container">

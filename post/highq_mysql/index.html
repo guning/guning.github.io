@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>高性能mysql复习笔记</title>
+  <meta property="og:title" content="高性能mysql复习笔记" />
+  <meta name="twitter:title" content="高性能mysql复习笔记" />
+  <meta name="description" content="《高性能Mysql》第3版部分主要章节的读书笔记">
+  <meta property="og:description" content="《高性能Mysql》第3版部分主要章节的读书笔记">
+  <meta name="twitter:description" content="《高性能Mysql》第3版部分主要章节的读书笔记">
+  <meta name="author" content="guning"/>
+  <meta property="og:image" content="https://blog.guningblog.top/img/color.jpg" />
+  <meta name="twitter:image" content="https://blog.guningblog.top/img/color.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://blog.guningblog.top/post/highq_mysql/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="guning" />
+
+  <meta name="generator" content="Hugo 0.49" />
+  <link rel="canonical" href="https://blog.guningblog.top/post/highq_mysql/" />
+  <link rel="alternate" href="https://blog.guningblog.top/index.xml" type="application/rss+xml" title="guning">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://blog.guningblog.top/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://blog.guningblog.top/css/highlight.min.css" /><link rel="stylesheet" href="https://blog.guningblog.top/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://blog.guningblog.top/">guning</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+      <div class="avatar-container">
+        <div class="avatar-img-border">
+          <a title="guning" href="https://blog.guningblog.top/">
+            <img class="avatar-img" src="https://blog.guningblog.top/img/color.jpg" alt="guning" />
+          </a>
+        </div>
+      </div>
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>高性能mysql复习笔记</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on July 2, 2020
+  
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 3 minutes (474 words)
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        
+
+<p>《高性能Mysql》第3版部分主要章节的读书笔记</p>
+
+<h2 id="整体思维导图">整体思维导图</h2>
+
+<p>笔记涵盖该书的1，4-7章，内容主要包括架构、schema设计、索引、查询优化、高级特性，都是偏工程实用的章节，同时也会有对该书内容的补充，例如B+Tree索引原理。</p>
+
+<p><img src="/img/highq_mysql.png" alt="高性能Mysql" /></p>
+
+<h2 id="mysql架构">Mysql架构</h2>
+
+<p><img src="/img/mysql_struct.jpg" alt="Mysql架构图" /></p>
+
+<p>以上为Mysql的架构图，总的来说可以分为三大部分：服务连接层、服务逻辑层（以上两层可并称服务层）、存储引擎层。</p>
+
+<h3 id="各层的功能">各层的功能</h3>
+
+<ul>
+<li>连接层：针对每个连接分配单独的线程，连接成功会对用户进行认证</li>
+<li>逻辑层：包含对sql的解析、优化，以及对部分查询结果的cache，Mysql丰富的函数功能、表级锁以及其他高级特性都是在这一层完成。而查询优化的本质之一（另一本质为schema设计和索引选择）就是针对优化器以及cache逻辑的sql优化，Mysql也提供了<code>explain</code>语句对具体的sql进行分析，方便用户优化</li>
+<li>存储引擎层：存储引擎封装了底层磁盘IO的复杂性，各种类型的存储引擎犹如一个个的slot，可以接入到服务层，用户可以根据使用场景选择合适的表存储引擎</li>
+</ul>
+
+<h4 id="查询执行的生命周期">查询执行的生命周期</h4>
+
+<h5 id="客户端与服务器的通信协议">客户端与服务器的通信协议</h5>
+
+<ul>
+<li>半双工</li>
+<li>需要考虑客户端请求的sql长度，以及返回数据的长度（LIMIT），数据未发送完，将持续占用资源</li>
+</ul>
+
+<h5 id="查询状态">查询状态</h5>
+
+<p><code>SHOW FULL PROCESSLIST</code></p>
+
+<ul>
+<li>Sleep</li>
+<li>Query</li>
+<li>Locked</li>
+<li>ANALYZING and statistics</li>
+<li>copy to tmp table（出现on disk表示出现磁盘临时表）</li>
+<li>sorting result</li>
+<li>sending data
+<br /></li>
+</ul>
+
+<h5 id="查询缓存">查询缓存</h5>
+
+<h5 id="查询优化处理">查询优化处理</h5>
+
+<p>在这个阶段MySQL会给每个表生成一个handler实例，优化器根据这些实例的接口可以获取到表的相关信息</p>
+
+<ul>
+<li>解析SQL</li>
+<li>预处理</li>
+<li>将语法树优化成执行计划</li>
+</ul>
+
+<blockquote>
+<ol>
+<li>基于成本的优化器，选择最优的执行计划</li>
+<li>可以通过查询当前连接的last_query_cost来查看上一次查询的成本：show status like ‘last_query_cost’;</li>
+<li>可能选错执行计划，原因可能是：存储引擎提供的统计信息不准确；估算成本的模型不符合实际情况；有些因素不会被考虑在内，例如并发等</li>
+<li>优化策略有2种：静态优化（直接对解析树进行分析优化）、动态优化（每次查询都重新评估）<br /></li>
+<li>执行逻辑：
+重新定义关联表的顺序
+将外连接转成内连接
+使用等价变换规则
+优化COUNT MIN MAX
+预估并转换常数表达式
+覆盖索引扫描
+子查询优化
+提前终止查询
+等值传递（关联）
+列表化IN()查询</li>
+</ol>
+</blockquote>
+
+<ul>
+<li>数据和索引的统计信息</li>
+<li>处理关联查询——无限套娃（使用临时表存临时数据）</li>
+<li>生成执行计划——指令树（左侧深度优先的树）</li>
+<li>排序优化</li>
+</ul>
+
+<blockquote>
+<ol>
+<li>内存里排序</li>
+<li>磁盘里排序</li>
+<li>数据集太大的情况下会将数据分块排序，存入磁盘再合并</li>
+</ol>
+</blockquote>
+
+<ul>
+<li>查询执行引擎</li>
+<li>返回结果给客户端</li>
+</ul>
+
+<blockquote>
+<ol>
+<li>MySQL会增量、逐步返回地将结果集返回给客户端</li>
+<li>每行数据根据协议封包之后通过tcp传输到客户端；MySQL可以在传输过程中对未传输的封包进行缓存，而后批量发送</li>
+</ol>
+</blockquote>
+
+<h3 id="事务">事务</h3>
+
+<p>老生常谈，事务基本原则ACID，事务就是完成某种业务操作的一整组SQL，能保证系统的完整性</p>
+
+<h4 id="atomic">Atomic</h4>
+
+<p>事务（一组SQL）不可分割，要么执行成功，要么执行失败</p>
+
+<h4 id="consistency">Consistency</h4>
+
+<p>事务的操作不会影响系统的一致性状态，即事务进行变更操作的数据，被其他事务读到的值，是旧版本的还是更新的版本。根据系统的不同的设计复杂度以及实际场景的需求，可以划分不同一致性级别。（非并发）</p>
+
+<h4 id="isolation">Isolation</h4>
+
+<p>并发事务之间互相影响的程度。Mysql同时处理两个事务A和B，A中有针对表中某行数据的修改，B对该行数据进行读取，读取到的值是更新结果还是未更新的结果，针对不同的隔离级别，会产生不同的问题：</p>
+
+<ul>
+<li>脏读：A修改了数据，B读取到了修改后的数据，之后A出错回滚了修改。B读到的数据就是脏数据</li>
+<li>幻读/幻行： B在A提交前后各执行了一次查询操作，返回记录数量可能不一样</li>
+</ul>
+
+<p>针对上述问题，可以有不同的隔离级别</p>
+
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>详情</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>未提交读</td>
+<td>系统未做任何隔离，事务间的修改可以互相访问到</td>
+</tr>
+
+<tr>
+<td>提交读</td>
+<td>只有在事务提交后，其更新结果才会被其他事务看见</td>
+</tr>
+
+<tr>
+<td>可重复读</td>
+<td>同事务中的同一数据多次查询会有相同结果，无论该数据是否被其他事务变更</td>
+</tr>
+
+<tr>
+<td>串行化</td>
+<td>所有事务串行化处理</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="durability">Durability</h4>
+
+<p>事务的修改会对系统产生永久的影响</p>
+
+<h3 id="并发与锁的处理">并发与锁的处理</h3>
+
+<h4 id="锁的类型">锁的类型</h4>
+
+<ul>
+<li>读锁/共享锁</li>
+<li>写锁/排他锁</li>
+</ul>
+
+<h4 id="锁粒度">锁粒度</h4>
+
+<ul>
+<li>表锁（服务层实现）</li>
+<li>行级锁（存储引擎层实现）</li>
+</ul>
+
+<h4 id="innodb的mvcc行锁实现">InnoDB的MVCC行锁实现</h4>
+
+<p>InnoDB实现MVCC的方式如下：</p>
+
+<ul>
+<li>每个数据行增加2列：当前系统版本号，过期系统版本号</li>
+<li>每开始一个新的事务，系统版本号+1，事务版本号为当前系统版本号</li>
+</ul>
+
+<p>针对CURD，InnoDB分别是这么处理的：</p>
+
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>处理逻辑</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>SELECT</td>
+<td>1. 只查版本号小于当前事务版本号的数据 <br/> 2. 同时过期版本字段未定义，或者大于当前事务版本号</td>
+</tr>
+
+<tr>
+<td>INSERT</td>
+<td>新增的每一行的版本号为当前系统版本号</td>
+</tr>
+
+<tr>
+<td>DELETE</td>
+<td>删除的每一行保存当前系统版本号到过期版本那一列</td>
+</tr>
+
+<tr>
+<td>UPDATE</td>
+<td>新增一条记录，同时更新旧版本的过期版本为当前系统版本号</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="存储引擎的选择">存储引擎的选择</h3>
+
+<table>
+<thead>
+<tr>
+<th>存储引擎</th>
+<th>特性</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>InnoDB</td>
+<td>1. 历史来源于5.1版本的InnoDB plugin <br/> 2. 数据存储于tablespace中，由一系列的数据文件组成，数据和索引分别存于不同的文件 <br/> 3. MVCC解决并发，默认可重复读，通过间隙锁防止幻读问题 <br/> 4. 聚簇索引，每个非主键索引必须包含主键</td>
+</tr>
+
+<tr>
+<td>MyISAM</td>
+<td>1. 支持全文索引、压缩、空间函数 <br/> 2. 不支持事务和行级锁 <br/> 3. 崩溃后难以恢复 <br/> 4. 表的索引存储在.MYI，数据存储在.MYD <br/> 5. 可以通过修改MAX_ROWS、AVG_ROW_LENGTH来修改表的大小限制 <br/> 6. 支持表锁、修复数据、索引、延迟更新索引（先刷入内存缓冲区，在清理该区域或者关闭表的时候刷入磁盘）</td>
+</tr>
+
+<tr>
+<td>Archive</td>
+<td>只支持INSERT和SELECT，适合日志和数据采集类应用，SELECT时会全表扫描；支持行级锁</td>
+</tr>
+
+<tr>
+<td>BlackHole</td>
+<td>丢弃所有插入的数据，但服务器会记录日志，一般用于复制数据库</td>
+</tr>
+
+<tr>
+<td>CSV</td>
+<td>可以转成CSV格式，一般用于数据导入导出</td>
+</tr>
+
+<tr>
+<td>Federated</td>
+<td>代理到另外一个远程服务器</td>
+</tr>
+
+<tr>
+<td>Memory</td>
+<td>缓存</td>
+</tr>
+
+<tr>
+<td>NDB</td>
+<td>用于集群化部署</td>
+</tr>
+
+<tr>
+<td>第三方</td>
+<td>OLTP类、面向列等存储引擎，一般不推荐</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="修改表引擎的方式">修改表引擎的方式</h4>
+
+<ul>
+<li>ALTER TABLE：锁表、消耗系统I/O能力</li>
+<li>导出-导入：导出建表语句，修改后再导入</li>
+<li>INSERT INTO xxx SELECT * FROM</li>
+</ul>
+
+<h2 id="schema与数据类型优化">Schema与数据类型优化</h2>
+
+<h3 id="数据类型">数据类型</h3>
+
+<h4 id="整数">整数</h4>
+
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>tinyint</td>
+<td>8bit</td>
+</tr>
+
+<tr>
+<td>smallint</td>
+<td>16bit</td>
+</tr>
+
+<tr>
+<td>mediumint</td>
+<td>24bit</td>
+</tr>
+
+<tr>
+<td>int</td>
+<td>32bit</td>
+</tr>
+
+<tr>
+<td>bigint</td>
+<td>64bit</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="实数">实数</h4>
+
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>float</td>
+<td>4byte</td>
+</tr>
+
+<tr>
+<td>double</td>
+<td>8byte</td>
+</tr>
+
+<tr>
+<td>decimal</td>
+<td>用于精确计算，每9个数字占4个字节，小数点占1个字节，计算时会转成double</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="字符串">字符串</h4>
+
+<ol>
+<li>BINARY 类比 char；VARBINARY 类比 varchar</li>
+<li>二进制存储字节码，在大小写敏感的场景下更有优势，同时，进行字符比较时直接比较字节的数值，效率更高</li>
+</ol>
+
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>varchar</td>
+<td>1. 存储可变长字符串，额外花1-2个字节存储字符串长度<br/>2. 使用场景是：列最大长度比平均长度长，且更新少；或者使用了UTF-8这类复杂的字符集，无法计算实际的字节数<br/>3. 存储和检索时保留结尾空格<br/>4. InnoDB会把过长的VARCHAR存储为BLOB</td>
+</tr>
+
+<tr>
+<td>char</td>
+<td>定长，删空格</td>
+</tr>
+
+<tr>
+<td>binary</td>
+<td>-</td>
+</tr>
+
+<tr>
+<td>varbinary</td>
+<td>-</td>
+</tr>
+
+<tr>
+<td>blog</td>
+<td>1. 用于大数据存储的BINARY<br/>2. 可以用TINY、SMALL、MEDIUM、LONG修饰<br/>3. 没有排序规则和字符集<br/>4. 数据过大时MYSQL会只用1-4个字节存储数据指针，实际数据由MYSQL安排到外部存储<br/>5. 排序只排序前面max_sort_length长度的字符串，可以更改该配置或者用ORDER BY SUBSTRING(column, length)<br/></td>
+</tr>
+
+<tr>
+<td>text</td>
+<td>-</td>
+</tr>
+
+<tr>
+<td>enum</td>
+<td>1. 底层存储紧凑<br/>2. 最好按照字符排序enum值（enum实际是整数，排序时将按照整数去排序）<br/>3. 查找表时尽量使用整数主键而非字符串主键进行关联<br/></td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="时间">时间</h4>
+
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>datetime</td>
+<td>1. 范围大，1001-9999<br/>2. 使用8个字节，存储格式为YYYYMMDDHHMMSS<br/>3. 可以使用UNIX_TIMESTAMP()函数把日期转化为Unix时间戳<br/></td>
+</tr>
+
+<tr>
+<td>timestamp</td>
+<td>1. 保存从1970年1月1日（标准时间）到如今的秒数<br/>2. 只能保存32位数字，时间到2038年1月19日3时14分07秒<br/>3. 可以使用FROM_UNIXTIME()把时间戳转成DATETIME<br/></td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="位">位</h4>
+
+<p>建议使用整数代替</p>
+
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>bit</td>
+<td>非数字场景下，读取出来的数值将对应到ASCII表中的字符;如果只需要true/flase，可以用char(0)存储NULL或&rdquo;</td>
+</tr>
+
+<tr>
+<td>set</td>
+<td>多个bit的集合</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="设计范式">设计范式</h3>
+
+<h4 id="避免-太多列-太多关联-过度枚举-变相枚举-过度排斥null设计">避免：太多列、太多关联、过度枚举、变相枚举、过度排斥NULL设计</h4>
+
+<h4 id="范式与反范式">范式与反范式</h4>
+
+<ul>
+<li>范式更新操作更快</li>
+<li>数据重复少，修改方便</li>
+<li>表更小，可以加载到内存</li>
+<li>可以减少使用DISTINCT和GROUP BY语句</li>
+<li>反范式无需关联数据</li>
+</ul>
+
+<p>最佳方案：混用范式与反范式，经典案例：缓存和汇总表</p>
+
+<h3 id="修改schema的方案">修改schema的方案</h3>
+
+<h4 id="直接替换-frm文件">直接替换.frm文件</h4>
+
+<ul>
+<li>创建相同结构的空表</li>
+<li>执行FLUSH TABLES WITH READ LOCK，关闭并锁住所有表</li>
+<li>交换.frm文件</li>
+<li>UNLOCK TABLES</li>
+</ul>
+
+<h4 id="主从库切换">主从库切换</h4>
+
+<h2 id="索引">索引</h2>
+
+<ul>
+<li>B-Tree</li>
+<li>单行访问很慢，最好尽可能的读取多行</li>
+<li>顺序访问数据很快（B+树的特性）</li>
+<li>索引覆盖查询很快（不需要回主键表查询实际的行数据）</li>
+</ul>
+
+<h3 id="类型与优势">类型与优势</h3>
+
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>B-Tree</td>
+<td>1. 全值匹配<br/>2. 匹配最左列<br/>3. 匹配列前缀（在2的基础上）<br/>4. 匹配范围值（会导致其后列的索引失效）<br/>5. 精确匹配某列后，范围匹配另外一列<br/>6. 只访问索引，不访问数据行<br/></td>
+</tr>
+
+<tr>
+<td>哈希索引</td>
+<td>1. 通过散列函数计算出哈希码（计算方式有：取模、(value<em>value) &gt;&gt; 28、斐泊那砌(value</em>?) &gt;&gt; 28）<br/>2. 哈希索引只只存数据指针，不存实际的行数据，所以无法使用范围查询吗，只能使用等值查询；同时也不支持排序；不支持部分索引列的匹配查找<br/>3. 需要注意哈希冲突的情况<br/>4. InnoDB内部对于常用索引会使用自适应hash索引<br/>5. 伪哈希：可以在schema增加一列hash列，支持长字符串的查询索引，在过滤原条件时增加hash列作为过滤条件；hash列的生成可以考虑使用触发器。<br/></td>
+</tr>
+
+<tr>
+<td>空间数据索引R-tree</td>
+<td>1. 无需前缀查询<br/>2. MyISAM支持，但支持得不是很好。PostgreSQL和PostGIS支持更好<br/></td>
+</tr>
+
+<tr>
+<td>全文索引</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+
+<p>优点：</p>
+
+<ul>
+<li>减少服务器需要扫描的数据量</li>
+<li>帮助服务器避免排序和临时表</li>
+<li>将随机I/O变为顺序I/O</li>
+</ul>
+
+<h3 id="创建范式">创建范式</h3>
+
+<ul>
+<li>独立的列：where条件的左边不要有表达式</li>
+<li>前缀索引和索引选择性</li>
+</ul>
+
+<blockquote>
+<ol>
+<li>索引选择性越接近1查询效率更高</li>
+<li>前缀索引设置要点：均匀或最佳提升</li>
+<li>无法使用其进行order by和group by</li>
+</ol>
+</blockquote>
+
+<ul>
+<li>多列索引</li>
+</ul>
+
+<blockquote>
+<ol>
+<li>多个列都分别设置索引并不能提高性能，在旧版本甚至会使索引失效</li>
+<li>当使用EXPLAIN看到有索引合并，说明表结构或者查询不合理</li>
+</ol>
+</blockquote>
+
+<ul>
+<li>选择合适的索引列顺序</li>
+</ul>
+
+<blockquote>
+<ol>
+<li>将选择性最高的列放在索引的最前列——经验法则（适用于不需要排序和分组的情况）</li>
+<li>性能也与值的分布有关</li>
+</ol>
+</blockquote>
+
+<ul>
+<li>聚簇索引（一般是主键）</li>
+</ul>
+
+<blockquote>
+<ol>
+<li>是一种数据存储方式</li>
+<li>优点：将相关数据保存在一起；数据访问更快；使用覆盖索引扫描的查询可以直接用主键值</li>
+<li>缺点：数据如果存于内存，将散失优势；插入速度依赖插入顺序；更新速度慢；新增更新可能导致页分裂；可能导致全表扫描变慢（行稀疏的时候）；二级索引可能会比较大，且需要两次索引查找（找到二级索引的对应的主键，再到聚簇索引里面找行数据——可以通过自适应哈希索引来减少重复工作）</li>
+</ol>
+</blockquote>
+
+<ul>
+<li>覆盖索引</li>
+</ul>
+
+<blockquote>
+<ol>
+<li>定义：索引的叶子节点已经包含实际的行数据（而非聚簇索引的主键值）</li>
+<li>优势：减少数据访问量（索引数据远小于数据行大小时）；范围查询时发挥顺序存储的优势；减少系统调用（索引于内存，数据于系统内核）；避免对主键索引的二次查询</li>
+<li>只适用B Tree索引</li>
+<li>缺点：索引如果覆盖了部分where条件，会回表查实际的行，导致覆盖索引失效（使用延迟关联可以解决）</li>
+<li>5.6版本采用索引条件推送解决了大部分问题</li>
+</ol>
+</blockquote>
+
+<ul>
+<li>使用索引扫描排序:explain的type列为index则表示使用了索引扫描来排序</li>
+<li>压缩索引</li>
+<li>重复和冗余索引——一般不需要</li>
+</ul>
+
+<h3 id="维护方式">维护方式</h3>
+
+<ul>
+<li>找到并修复损坏的表：<code>CHECK TABLE &amp;&amp; REPAIR TABLE || ALTER TABLE table ENGINE=InnoDB;</code></li>
+<li>更新索引统计信息</li>
+</ul>
+
+<blockquote>
+<ol>
+<li>ANALYZE TABLE</li>
+<li>运维在进行SHOW TABLE STATUS或者SHOW INDEX等等操作的时候，可能会产生大量锁，可以关闭innodb_stats_on_metadata选项来避免该情况</li>
+<li>关闭了索引统计信息的自动更新吼，需要手动执行ANALYZE TABLE来保证更新</li>
+</ol>
+</blockquote>
+
+<ul>
+<li>减少索引和数据的碎片:<code>OPTIMIZE TABLE</code> &amp;&amp; <code>ALTER TABLE table_name ENGINE=engine</code></li>
+</ul>
+
+<h2 id="查询性能优化">查询性能优化</h2>
+
+<h3 id="指导思想">指导思想</h3>
+
+<ul>
+<li>查询、表结构、索引的合理设计是查询性能优化的基础</li>
+<li>查询慢的原因——关乎整个查询的生命周期</li>
+<li>优化思路：客户端SQL的数据访问方式 -&gt; 连接层 -&gt; 执行计划分析</li>
+</ul>
+
+<h3 id="解决方案">解决方案</h3>
+
+<h4 id="客户端sql的数据访问方式">客户端SQL的数据访问方式</h4>
+
+<ul>
+<li>访问太多不需要的行/列，如查询不需要的记录、多表关联时返回全部列、总是取出所有列、重复查询相同的数据</li>
+<li>mysql服务层是否处理大量不需要的数据</li>
+</ul>
+
+<blockquote>
+<ol>
+<li>响应时间</li>
+<li>扫描的行数/返回的行数</li>
+<li>访问类型</li>
+</ol>
+
+<p>where条件：
+  存储引擎过滤不需要的行；
+  索引覆盖扫描，在服务层完成，无需回表（extra 列出现 using index）；
+  直接在服务层进行过滤（extra 列出现using where）</p>
+</blockquote>
+
+<ul>
+<li>重构方式</li>
+</ul>
+
+<blockquote>
+<ol>
+<li>查询逻辑的选择（多个/单个）</li>
+<li>切分查询</li>
+<li>分解关联查询</li>
+</ol>
+</blockquote>
+
+<h4 id="连接层-show-processlist">连接层：<code>show processlist</code></h4>
+
+<h4 id="执行计划分析-explain">执行计划分析：<code>explain</code></h4>
+
+<ul>
+<li>关联子查询（5.6之后已优化，8.0采用物化视图）</li>
+<li>UNION</li>
+<li>索引合并优化</li>
+<li>等值传递问题（如果查询多表使用where/on/using等语句，同时是IN搜索条件，那么该条件会被复制到每个表中进行记录过滤。如果IN条件数据多，那么会有性能问题）</li>
+<li>并行执行问题（不支持多核，8.0已支持）</li>
+<li>哈希关联——8.0支持</li>
+<li>松散索引扫描：例如索引(a, b)，当where条件只搜索b的时候，无法使用索引， 松散索引扫描就是支持在每个a,x索引里找到匹配的b；5.6之后将通过索引条件下推来解决</li>
+<li>最大值和最小值优化</li>
+<li>不支持同表同时进行更新和查询操作——可以通过临时表来解决</li>
+</ul>
+
+<h4 id="特定查询优化方式">特定查询优化方式</h4>
+
+<ul>
+<li>优化count</li>
+<li>关联查询</li>
+</ul>
+
+<blockquote>
+<ol>
+<li>索引顺序和是否冗余</li>
+<li>group by 和 order by最好只有一列</li>
+<li>升级后的关联语法可能发生改变</li>
+</ol>
+</blockquote>
+
+<ul>
+<li>子查询</li>
+<li>group by 和 distinct：GROUP BY的内部优化逻辑：有索引用索引，无索引用临时表或使用文件排序</li>
+<li>GROUP BY WITH ROLLUP ：建议在客户端处理</li>
+<li>limit分页</li>
+</ul>
+
+<blockquote>
+<p>使用索引覆盖扫描</p>
+
+<p>即将
+<code>select id ,desc from table order by title  limit 50, 5;</code><code>
+改成
+</code>select id, desc from table inner join (select id from table order by title  limit 50, 5) as tmp using(id) `
+延迟关联</p>
+</blockquote>
+
+<ul>
+<li>UNION</li>
+<li>静态查询分析</li>
+<li>使用用户自定义变量：排名、避免重复查询、统计和更新插入的数量、确定取值的顺序、优化UNION</li>
+</ul>
+
+<h3 id="案例">案例</h3>
+
+<ul>
+<li>队列表</li>
+<li>计算两点之间的距离</li>
+<li>使用用户自定义函数</li>
+</ul>
+
+<h2 id="高级特性">高级特性</h2>
+
+
+        
+
+        
+            <hr/>
+            <section id="social-share">
+              <ul class="list-inline footer-links">
+                
+
+
+<li>
+    <a href="//twitter.com/share?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fhighq_mysql%2f&amp;text=%e9%ab%98%e6%80%a7%e8%83%bdmysql%e5%a4%8d%e4%b9%a0%e7%ac%94%e8%ae%b0&amp;via="
+       target="_blank" alt="" title="Share on Twitter">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//plus.google.com/share?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fhighq_mysql%2f" target="_blank" title="Share on Google Plus">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.guningblog.top%2fpost%2fhighq_mysql%2f" target="_blank" title="Share on Facebook">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//reddit.com/submit?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fhighq_mysql%2f&amp;title=%e9%ab%98%e6%80%a7%e8%83%bdmysql%e5%a4%8d%e4%b9%a0%e7%ac%94%e8%ae%b0" target="_blank" title="Share on Reddit">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-reddit fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fhighq_mysql%2f&amp;title=%e9%ab%98%e6%80%a7%e8%83%bdmysql%e5%a4%8d%e4%b9%a0%e7%ac%94%e8%ae%b0" target="_blank"
+       title="Share on LinkedIn">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fhighq_mysql%2f&amp;title=%e9%ab%98%e6%80%a7%e8%83%bdmysql%e5%a4%8d%e4%b9%a0%e7%ac%94%e8%ae%b0" target="_blank"
+       title="Share on StumbleUpon">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-stumbleupon fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fhighq_mysql%2f&amp;description=%e9%ab%98%e6%80%a7%e8%83%bdmysql%e5%a4%8d%e4%b9%a0%e7%ac%94%e8%ae%b0" target="_blank"
+       title="Share on Pinterest">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-pinterest fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+              </ul>
+            </section>
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://blog.guningblog.top/post/schr%C3%B6dinger_go/" data-toggle="tooltip" data-placement="top" title="&#34;薛定谔&#34;的GO">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:guningh@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/guning" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="blog.guningblog.top">guning</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2020
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://blog.guningblog.top/">guning</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.49</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://blog.guningblog.top/js/main.js"></script>
+<script src="https://blog.guningblog.top/js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> $(document).ready(function() {$("pre.chroma").css("padding","0");}); </script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://blog.guningblog.top/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

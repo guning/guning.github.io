@@ -5,20 +5,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Posts</title>
-  <meta property="og:title" content="Posts" />
-  <meta name="twitter:title" content="Posts" />
+  <title>Leetcode</title>
+  <meta property="og:title" content="Leetcode" />
+  <meta name="twitter:title" content="Leetcode" />
+  <meta name="description" content="leetcode刷题之旅">
+  <meta property="og:description" content="leetcode刷题之旅">
+  <meta name="twitter:description" content="leetcode刷题之旅">
   <meta name="author" content="guning"/>
   <meta property="og:image" content="https://blog.guningblog.top/img/color.jpg" />
   <meta name="twitter:image" content="https://blog.guningblog.top/img/color.jpg" />
   <meta name="twitter:card" content="summary" />
-  <meta property="og:url" content="https://blog.guningblog.top/post/" />
+  <meta property="og:url" content="https://blog.guningblog.top/post/leetcode/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="guning" />
 
   <meta name="generator" content="Hugo 0.49" />
-  <link rel="canonical" href="https://blog.guningblog.top/post/" />
-  <link rel="alternate" href="https://blog.guningblog.top/post/index.xml" type="application/rss+xml" title="guning">
+  <link rel="canonical" href="https://blog.guningblog.top/post/leetcode/" />
+  <link rel="alternate" href="https://blog.guningblog.top/index.xml" type="application/rss+xml" title="guning">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -154,7 +157,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>Posts</h1>
+                <h1>Leetcode</h1>
               
               
               
@@ -162,11 +165,11 @@
                 <span class="post-meta">
   
   
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on October 17, 2018
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on January 1, 2019
   
   
   &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 0 minutes (0 words)
+  <i class="fa fa-clock-o"></i> 1 minutes (67 words)
   
   
 </span>
@@ -181,106 +184,143 @@
   </header>
 
     
-  <div class="container" role="main">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
         
-        <div class="posts-list">
-          
-            <article class="post-preview">
-              <a href="https://blog.guningblog.top/post/machine_safty/">
-                <h2 class="post-title">执行安全研究和实践</h2>
 
-                
-              </a>
+<p><code>leetcode</code>刷题之旅</p>
 
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on October 17, 2018
-  
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 1 minutes (165 words)
-  
-  
-</span>
+<h2 id="jewels-and-stones">Jewels and Stones</h2>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">numJewelsInStones</span><span class="p">(</span><span class="nx">J</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">S</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">ss</span> <span class="o">:=</span> <span class="nx">list</span><span class="p">.</span><span class="nx">New</span><span class="p">()</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">S</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">ss</span><span class="p">.</span><span class="nx">PushBack</span><span class="p">(</span><span class="nx">S</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+    <span class="p">}</span>
 
+    <span class="nx">cnt</span> <span class="o">:=</span> <span class="mi">0</span>
+    <span class="kd">var</span> <span class="nx">next</span> <span class="o">*</span><span class="nx">list</span><span class="p">.</span><span class="nx">Element</span>
+    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span><span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">J</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="nx">e</span> <span class="o">:=</span> <span class="nx">ss</span><span class="p">.</span><span class="nx">Front</span><span class="p">();</span> <span class="nx">e</span><span class="o">!=</span> <span class="kc">nil</span><span class="p">;</span> <span class="nx">e</span> <span class="p">=</span> <span class="nx">next</span> <span class="p">{</span>
+            <span class="nx">next</span> <span class="p">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Next</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">uint8</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="o">==</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Value</span><span class="p">.(</span><span class="kt">uint8</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">cnt</span> <span class="p">=</span> <span class="nx">cnt</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="nx">ss</span><span class="p">.</span><span class="nx">Remove</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">cnt</span>
+<span class="p">}</span></code></pre></div>
 
-              </p>
-              <div class="post-entry">
-                
-                  安全小组扫描到了项目的安全缺陷，在某个版本进行了预研和修复，于是整理出此文
-                  <a href="https://blog.guningblog.top/post/machine_safty/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://blog.guningblog.top//tags/linux/">linux</a>&nbsp;
-                  
-                    <a href="https://blog.guningblog.top//tags/docker/">docker</a>&nbsp;
-                  
-                </div>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://blog.guningblog.top/post/regular_expression/">
-                <h2 class="post-title">正则表达式</h2>
-
-                
-              </a>
-
-              <p class="post-meta">
-                <span class="post-meta">
-  
-  
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on October 15, 2018
-  
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 2 minutes (271 words)
-  
-  
-</span>
-
-
-              </p>
-              <div class="post-entry">
-                
-                  A Regular Expression is a sequence of characters for defining a search pattern.
-                  <a href="https://blog.guningblog.top/post/regular_expression/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://blog.guningblog.top//tags/regex/">regex</a>&nbsp;
-                  
-                </div>
-              
-
-            </article>
-          
-        </div>
         
-          <ul class="pager main-pager">
-            
-              <li class="previous">
-                <a href="/post/page/1/">&larr; Newer Posts</a>
-              </li>
-            
-            
-          </ul>
+
         
-      </div>
+            <hr/>
+            <section id="social-share">
+              <ul class="list-inline footer-links">
+                
+
+
+<li>
+    <a href="//twitter.com/share?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fleetcode%2f&amp;text=Leetcode&amp;via="
+       target="_blank" alt="" title="Share on Twitter">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//plus.google.com/share?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fleetcode%2f" target="_blank" title="Share on Google Plus">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.guningblog.top%2fpost%2fleetcode%2f" target="_blank" title="Share on Facebook">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//reddit.com/submit?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fleetcode%2f&amp;title=Leetcode" target="_blank" title="Share on Reddit">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-reddit fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fleetcode%2f&amp;title=Leetcode" target="_blank"
+       title="Share on LinkedIn">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fleetcode%2f&amp;title=Leetcode" target="_blank"
+       title="Share on StumbleUpon">
+        <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-stumbleupon fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+
+<li>
+    <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fblog.guningblog.top%2fpost%2fleetcode%2f&amp;description=Leetcode" target="_blank"
+       title="Share on Pinterest">
+         <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-pinterest fa-stack-1x fa-inverse"></i>
+              </span>
+    </a>
+</li>
+
+              </ul>
+            </section>
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://blog.guningblog.top/post/tour_of_go_2/" data-toggle="tooltip" data-placement="top" title="Go语言的协程和通道（channels）">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://blog.guningblog.top/post/lock_free/" data-toggle="tooltip" data-placement="top" title="Leetcode">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
     </div>
   </div>
+</div>
 
     <footer>
   <div class="container">

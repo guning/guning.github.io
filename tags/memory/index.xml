@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Memory on guning</title>
+    <link>https://blog.guningblog.top/tags/memory/</link>
+    <description>Recent content in Memory on guning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <managingEditor>guningh@gmail.com (guning)</managingEditor>
+    <webMaster>guningh@gmail.com (guning)</webMaster>
+    <lastBuildDate>Mon, 20 Apr 2020 17:21:30 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.guningblog.top/tags/memory/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>内存分页与代码分段</title>
+      <link>https://blog.guningblog.top/post/mem/</link>
+      <pubDate>Mon, 20 Apr 2020 17:21:30 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>https://blog.guningblog.top/post/mem/</guid>
+      <description>计算机是如何对物理内存的管理的呢？可执行文件是如何加载到内存进行执行的？</description>
+    </item>
+    
+  </channel>
+</rss>
