@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.guningblog.top/post/itil4/</loc>
+    <lastmod>2020-08-14T21:42:41+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.guningblog.top/post/highq_mysql/</loc>
     <lastmod>2020-07-02T10:34:43+08:00</lastmod>
   </url>
@@ -112,6 +117,18 @@
   </url>
   
   <url>
+    <loc>https://blog.guningblog.top/tags/itil4/</loc>
+    <lastmod>2020-08-14T21:42:41+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.guningblog.top/tags/lift/</loc>
+    <lastmod>2020-08-14T21:42:41+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.guningblog.top/tags/linux/</loc>
     <lastmod>2018-10-17T16:32:52+08:00</lastmod>
     <priority>0</priority>
@@ -131,7 +148,7 @@
   
   <url>
     <loc>https://blog.guningblog.top/post/</loc>
-    <lastmod>2020-07-02T10:34:43+08:00</lastmod>
+    <lastmod>2020-08-14T21:42:41+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -161,7 +178,7 @@
   
   <url>
     <loc>https://blog.guningblog.top/</loc>
-    <lastmod>2020-07-02T10:34:43+08:00</lastmod>
+    <lastmod>2020-08-14T21:42:41+08:00</lastmod>
     <priority>0</priority>
   </url>
   

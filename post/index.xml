@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>guningh@gmail.com (guning)</managingEditor>
     <webMaster>guningh@gmail.com (guning)</webMaster>
-    <lastBuildDate>Thu, 02 Jul 2020 10:34:43 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 14 Aug 2020 21:42:41 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.guningblog.top/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ITIL4</title>
+      <link>https://blog.guningblog.top/post/itil4/</link>
+      <pubDate>Fri, 14 Aug 2020 21:42:41 +0800</pubDate>
+      <author>guningh@gmail.com (guning)</author>
+      <guid>https://blog.guningblog.top/post/itil4/</guid>
+      <description>参加了ITIL4 Foundation的培训，对IT服务管理有了一定的认知。对组织的管理规范，应该也可以用于个人，应该能对个人的成长有一定的帮助。</description>
+    </item>
     
     <item>
       <title>高性能mysql复习笔记</title>
